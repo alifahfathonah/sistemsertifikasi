@@ -75,9 +75,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'certification.uib.ac.id',
-	'username' => 'certification_u',
-	'password' => 'vmi4HFhH8m',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
 	'database' => 'certification_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
