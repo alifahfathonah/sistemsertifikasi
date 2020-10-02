@@ -26,6 +26,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/frontend/css/slick.css">
     <!-- style CSS -->
     <link rel="stylesheet" href="<?php echo base_url() ?>/assets/frontend/css/style.css">
+
+    <!-- Datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+
+    <!-- Sweetalert -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url() ?>assets/sweetalert/sweetalert2.css">
 </head>
 
 <body>
@@ -57,9 +67,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li class="nav-item">
                             <a class="nav-link" href="https://sertifikasi.uib.ac.id/">Berita</a>
                         </li>
-                        <li class="d-none d-lg-block">
-                            <a class="btn_1" href="<?php echo base_url() ?>home/login">Login</a>
-                        </li>
+
+                        <?php
+
+                            if($this->session->userdata('npm')) { 
+                        
+                        ?>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   Akun </a>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="<?php echo base_url() ?>akun_mahasiswa/akun"><?php echo $this->session->userdata('nama') ?></a>
+                                </div>
+                            </li>
+
+                        <?php 
+                        
+                            } elseif($this->session->userdata('email')) {
+                        
+                        ?>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                   Akun </a>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="<?php echo base_url() ?>akun_umum/akun"><?php echo $this->session->userdata('nama') ?></a>
+                                </div>
+                            </li>
+
+
+                        <?php 
+
+                            } else {
+                        
+                        ?>
+
+                            <li class="d-none d-lg-block">
+                                <a class="btn_1" href="<?php echo base_url() ?>home/login">Login</a>
+                            </li>
+
+                        <?php 
+                            }
+                        ?>
+
                     </ul>
                 </div>
             </nav>

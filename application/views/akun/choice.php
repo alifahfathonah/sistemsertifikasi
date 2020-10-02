@@ -5,11 +5,11 @@
 		<div class="row">
 
 			<div class="col-6 text-center">
-				<a href="<?php echo base_url() ?>akun_mahasiswa" class="btn btn-outline-primary btn-block p-3">Mahasiswa</a>
+				<a href="<?php echo base_url() ?>akun_mahasiswa" class="btn btn-outline-primary btn-block p-4">Mahasiswa</a>
 			</div>
 
 			<div class="col-6 text-center">
-				<a href="<?php echo base_url('akun_umum') ?>" class="btn btn-outline-primary btn-block p-3">Umum</a>
+				<a href="<?php echo base_url() ?>akun_umum" class="btn btn-outline-primary btn-block p-4">Umum</a>
 			</div>
 
 		</div>

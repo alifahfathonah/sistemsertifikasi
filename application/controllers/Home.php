@@ -14,6 +14,11 @@ class Home extends CI_Controller {
 
 	public function login()
 	{
+		if (isset($this->session->userdata['npm'])) 
+		{
+            redirect(base_url('home'));
+        }
+
 		$data = [
 			'view'	=> 'akun/choice'
 		];

@@ -70,15 +70,71 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <!-- custom js -->
     <script src="<?php echo base_url() ?>/assets/frontend/js/custom.js"></script>
 
-    <!-- Animasi saat klik menu -->
-    <script type="text/javascript">
-        $('a').click(function() {
-            var clickedele = $(this).attr("href");
-            var desti = $(clickedele).offset().top;
-            $('html, body').animate({ scrollTop: desti-15}, 'slow');
-            return false;
-        });
+    <!-- Datatable -->
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Sweetalert -->
+    <script type="text/javascript" src="<?php echo base_url() ?>assets/sweetalert/sweetalert2.all.min.js"></script>
+
+    <script>
+      <?php
+  // Validasi error, jika username atau password tidak cocok
+      if (validation_errors() || $this->session->flashdata('message')) {
+        if ($this->session->flashdata('tipe') == 'success') {
+          ?>
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2800,
+                timerProgressBar: true,
+            })
+
+            Toast.fire({
+                icon: "<?php echo $this->session->flashdata('tipe'); ?>",
+                title: "<?php echo $this->session->flashdata('message'); ?>"
+            })
+          <?php
+      } else {
+        ?>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2800,
+            timerProgressBar: true,
+        })
+
+        Toast.fire({
+            icon: "<?php echo $this->session->flashdata('tipe'); ?>",
+            title: 'Oops...',
+            title: "<?php echo $this->session->flashdata('message'); ?>"
+        })
+
+        <?php
+        }
+    }
+    ?>
     </script>
+
+<!-- Animasi saat klik menu -->
+<script type="text/javascript">
+    $('a').click(function() {
+        var clickedele = $(this).attr("href");
+        var desti = $(clickedele).offset().top;
+        $('html, body').animate({ scrollTop: desti-15}, 'slow');
+        return false;
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#example').DataTable();
+        $('#example2').DataTable();
+    } );
+</script>
 </body>
 
 </html>
