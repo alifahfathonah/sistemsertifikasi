@@ -124,7 +124,7 @@
 
 						<div class="text-center mt-5">
 							
-							<a href="" class="btn btn-warning"><i class="fas fa-lock"></i> Ubah Password ?</a>
+							<a href="<?php echo base_url() ?>akun_umum/ganti_password" class="btn btn-warning"><i class="fas fa-lock"></i> Ubah Password ?</a>
 
 							<a href="<?php echo base_url() ?>logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
 

@@ -17,10 +17,14 @@
 						<input type="password" name="password" placeholder="Password" class="single-input">
 					</div>
 
-					<div class="row">
+					<div class="row mt-3 mb-3">
 						
 						<div class="col-6 mt-3">
-							<p>Belum punya akun? <a href="<?php echo base_url() ?>akun_umum/register">Daftar disini</a></p>
+							Belum punya akun? <a href="<?php echo base_url() ?>akun_umum/register">Daftar disini</a>
+						</div>
+
+						<div class="col-6 mt-3 text-right">
+							<a href="<?php echo base_url() ?>akun_umum/lupa_password">Lupa Password</a>
 						</div>
 
 					</div>

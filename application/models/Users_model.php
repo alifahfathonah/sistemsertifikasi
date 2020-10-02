@@ -22,7 +22,7 @@ class Users_model extends CI_Model {
 		return $this->db->get($this->table);
 	}
 
-	function reset_password($email, $data)
+	function ubah_password($email, $data)
 	{
 		$this->db->where("pu_email", $email);
 		return $this->db->update($this->table, $data);

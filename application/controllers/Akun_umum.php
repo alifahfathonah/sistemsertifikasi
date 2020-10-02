@@ -118,7 +118,7 @@ class Akun_umum extends CI_Controller {
 		$this->form_validation->set_rules('password', 'Password', 'required|trim|min_length[8]');
 
 		$this->form_validation->set_message('required', '{field} harus diisi !');
-		$this->form_validation->set_message('valid_email', 'Isi {field} yang sesuai !');
+		$this->form_validation->set_message('valid_email', 'Mohon Isi {field} dengan benar !');
 		$this->form_validation->set_message('numeric', 'Isi {field} yang sesuai !');
 
 		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
@@ -266,6 +266,110 @@ class Akun_umum extends CI_Controller {
 			}
 		}
 	}
+
+	public function ganti_password()
+	{
+		if (!isset($this->session->userdata['email'])) {
+			redirect(base_url('home'));
+		}
+
+		$data = [
+			'email'			=> $this->session->userdata('email'),
+			'view'			=> 'akun/umum/ganti_password',
+		];
+
+		$this->load->view('template/wrapper', $data);
+	}
+
+	public function konfirmasi_perubahan_password()
+	{
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('message', 'Mohon isi sesuai dengan format !');
+			$this->session->set_flashdata('tipe', 'error');
+			$this->ganti_password();
+		}
+		else
+		{
+			$data = [
+				'pu_password' => md5($this->input->post('password'))
+			];
+
+			if($this->users_model->ubah_password($this->input->post('email'), $data))
+			{
+				$this->session->set_flashdata('message', 'Password berhasil diubah!');
+				$this->session->set_flashdata('tipe', 'success');
+				redirect(base_url('akun_umum/akun'));
+			}
+			else
+			{
+				$this->session->set_flashdata('message', 'Password gagal diubah!');
+				$this->session->set_flashdata('tipe', 'error');
+				$this->ganti_password();
+			}
+		}
+		
+	}
+
+	public function lupa_password()
+	{
+		$data = [
+			'view'			=> 'akun/umum/reset_password',
+		];
+
+		$this->load->view('template/wrapper', $data);
+	}
+
+
+	public function konfirmasi_reset_password()
+	{
+		$this->form_validation->set_rules('email', 'Email', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('message', 'Mohon isi sesuai dengan format !');
+			$this->session->set_flashdata('tipe', 'error');
+			$this->lupa_password();
+		}
+		else
+		{
+			$check = $this->users_model->checkemail(trim($this->input->post('email', TRUE)));
+			$checkemail = $check->row();
+
+			if(!$checkemail)
+			{
+				$this->session->set_flashdata('message', 'Email tidak terdaftar!');
+				$this->session->set_flashdata('tipe', 'error');
+				$this->lupa_password();
+			}
+			else
+			{
+				$data = [
+					'pu_email'    => $this->input->post('email'),
+					'pu_password' => md5($this->input->post('password'))
+				];
+
+				if($this->users_model->ubah_password($this->input->post('email'), $data))
+				{
+					$this->session->set_flashdata('message', 'Password berhasil direset!');
+					$this->session->set_flashdata('tipe', 'success');
+					redirect(base_url('akun_umum'));
+				}
+				else
+				{
+					$this->session->set_flashdata('message', 'Password gagal direset!');
+					$this->session->set_flashdata('tipe', 'error');
+					$this->lupa_password();
+				}
+			}
+			
+		}
+	}
+
+
 
 
 
