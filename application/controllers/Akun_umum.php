@@ -7,6 +7,18 @@ class Akun_umum extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('users_model');
+		// Jika ada session user mahasiswa maka diblok
+		if (isset($this->session->userdata['npm'])) {
+			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai mahasiswa !');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('home'));
+		}
+		// Jika ada session user admin maka diblok
+		if (isset($this->session->userdata['username'])) {
+			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai admin !');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('dashboard'));
+		}
 	}
 
 	public function index()

@@ -6,6 +6,10 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
+		if (!isset($this->session->userdata['username'])) {
+			redirect(base_url('auth'));
+		}
+
 		$data = [
 			'view'	=> 'admin/index'
 		];
