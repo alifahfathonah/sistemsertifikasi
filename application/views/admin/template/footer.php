@@ -10,10 +10,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!-- Main Footer -->
 <footer class="main-footer">
-  <!-- To the right -->
-  <div class="float-right d-none d-sm-inline">
-    Anything you want
-  </div>
   <!-- Default to the left -->
   <strong>Copyright &copy; <?php echo date('Y') ?> <a href="">UIB</a></strong> All rights reserved.
 </footer>
@@ -72,6 +68,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     }
   }
   ?>
+</script>
+<!-- DataTables -->
+<script src="<?php echo base_url() ?>assets/backend/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?php echo base_url() ?>assets/backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
 </script>
 </body>
 </html>

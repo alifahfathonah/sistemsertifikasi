@@ -26,6 +26,12 @@
       <a href=""><b>Sistem</b>Sertifikasi</a>
     </div>
     <!-- /.login-logo -->
+
+    <div class="text-center">
+      <img src="<?php echo base_url() ?>assets/img/logo.png" class="w-50 pb-2">      
+    </div>
+
+
     <div class="card">
       <div class="card-body login-card-body">
 
@@ -50,7 +56,7 @@
           </div>
           
           <div class="row">
-            <div class="col-4">
+            <div class="col-12">
               <button type="submit" class="btn btn-primary btn-block">Log In</button>
             </div>
             <!-- /.col -->
