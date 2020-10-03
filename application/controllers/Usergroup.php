@@ -138,6 +138,22 @@ class Usergroup extends CI_Controller {
 		}
 	}
 
+	public function delete($id)
+	{
+		if($this->usergroup_model->delete($id))
+		{
+			$this->session->set_flashdata('message', 'Data berhasil dihapus');
+			$this->session->set_flashdata('tipe', 'success');
+			redirect(base_url('usergroup'));
+		}
+		else
+		{
+			$this->session->set_flashdata('message', 'Data gagal dihapus');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('usergroup'));
+		}
+	}
+
 }
 
 /* End of file Usergroup.php */

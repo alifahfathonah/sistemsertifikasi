@@ -61,8 +61,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
             <li class="nav-header">Menu</li>
+
+
+
+            <li class="nav-item">
+              <a href="<?php echo base_url() ?>dashboard" class="nav-link <?php echo ($this->uri->segment(1) == 'dashboard') ? 'active' : ''; ?>">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Dashboard
+                </p>
+              </a>
+            </li>
             
-            <!-- <li class="nav-item has-treeview menu-open">
+          <!--   <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link active">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -93,11 +104,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             $this->db->join('ssc_user_group', 'ssc_user_group.ug_id = ssc_user.usr_group');
             $this->db->join('ssc_modul_group', 'ssc_modul_group.mg_usergroup = ssc_user.usr_group');
             $this->db->join('ssc_modul', 'ssc_modul.mdl_id = ssc_modul_group.mg_modul');
-            $this->db->where('usr_email', $this->session->userdata('email'));
+            $this->db->where('usr_email', $this->session->userdata('username'));
             $this->db->where('mdl_mainmenu', 0 );
             $this->db->order_by('mdl_mainmenu', 'ASC');
             $main_menu = $this->db->get()->result();
-
 
             foreach($main_menu as $main)
             {
@@ -105,30 +115,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
               $this->db->join('ssc_user_group', 'ssc_user_group.ug_id = ssc_user.usr_group');
               $this->db->join('ssc_modul_group', 'ssc_modul_group.mg_usergroup = ssc_user.usr_group');
               $this->db->join('ssc_modul', 'ssc_modul.mdl_id = ssc_modul_group.mg_modul');
-              $this->db->where('usr_email', $this->session->userdata('email'));
+              $this->db->where('usr_email', $this->session->userdata('username'));
               $this->db->where('mdl_mainmenu', $main->mdl_id);
               $this->db->order_by('ssc_modul.mdl_modul', 'ASC');
               $menu = $this->db->get()->result();
 
               if($menu)
               {
-                echo '<li class="nav-item has-treeview menu-open"><a class="nav-link active"><i class="'. $main->mdl_icon .'"><p>
-                  Dashboard
-                  <i class="right fas fa-angle-left"></i>
-                </p></a>
-                <ul class="nav nav-treeview">'
-                ;
-
                 foreach($menu as $m)
                 {
-                  echo '<li class="nav-item"><a href="'. base_url() . $m->mdl_link . '" class="nav-link">'. $m->mdl_modul .'</a>';
-                }
+                    echo 
+                    '<li class="nav-item has-treeview '. ($this->uri->segment(1) == $m->mdl_link ? 'menu-open' : '') .'"><a href="" class="nav-link '. ($this->uri->segment(1) == $m->mdl_link ? 'active' : '') .'">
+                      <i class="nav-icon '. $main->mdl_icon .'"></i>
+                        <p>
+                          '. $main->mdl_modul .'
+                          <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                       <li class="nav-item">
+                          <a href="'. base_url() . $m->mdl_link . '" class="nav-link '. ($this->uri->segment(1) == $m->mdl_link ? 'active' : '') .'">
+                            <i class="'. $m->mdl_icon .' nav-icon"></i>
+                            <p>'. $m->mdl_modul .'</p>
+                          </a>
+                        </li>
+                      </ul>';
+                    }
+                    
+                  }
 
-                echo '</ul>
-                </li>
-                ';
 
-              }
             }
 
 
