@@ -122,30 +122,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
               if($menu)
               {
-                foreach($menu as $m)
-                {
-                    echo 
-                    '<li class="nav-item has-treeview '. ($this->uri->segment(1) == $m->mdl_link ? 'menu-open' : '') .'"><a href="" class="nav-link '. ($this->uri->segment(1) == $m->mdl_link ? 'active' : '') .'">
-                      <i class="nav-icon '. $main->mdl_icon .'"></i>
-                        <p>
-                          '. $main->mdl_modul .'
-                          <i class="right fas fa-angle-left"></i>
-                        </p>
-                      </a>
-                      <ul class="nav nav-treeview">
-                       <li class="nav-item">
-                          <a href="'. base_url() . $m->mdl_link . '" class="nav-link '. ($this->uri->segment(1) == $m->mdl_link ? 'active' : '') .'">
-                            <i class="'. $m->mdl_icon .' nav-icon"></i>
-                            <p>'. $m->mdl_modul .'</p>
-                          </a>
-                        </li>
-                      </ul>';
+                  echo 
+                  '<li class="nav-item has-treeview '. ($this->uri->segment(1) == $main->mdl_link ? 'menu-open' : '') .'"><a href="" class="nav-link '. ($this->uri->segment(1) == $main->mdl_link ? 'active' : '') .'">
+                    <i class="nav-icon '. $main->mdl_icon .'"></i>
+                      <p>
+                        '. $main->mdl_modul .'
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>';
+
+                    foreach($menu as $m)
+                    {
+                      echo'
+                        <ul class="nav nav-treeview">
+                         <li class="nav-item">
+                            <a href="'. base_url() . $m->mdl_link . '" class="nav-link '. ($this->uri->segment(1) == $m->mdl_link ? 'active' : '') .'">
+                              <i class="'. $m->mdl_icon .' nav-icon"></i>
+                              <p>'. $m->mdl_modul .'</p>
+                            </a>
+                          </li>
+                        </ul>';
                     }
-                    
-                  }
-
-
-            }
+                }
+              }
 
 
             ?>
