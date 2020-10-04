@@ -304,6 +304,29 @@ class Batch_sertifikasi extends CI_Controller {
 		}
 	}
 
+	public function delete($id)
+	{
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('auth');
+		}
+
+		if($this->batchsertifikasi_model->delete($id))
+		{
+			$this->session->set_flashdata('message', 'Data berhasil dihapus');
+			$this->session->set_flashdata('tipe', 'success');
+			redirect(base_url('batch_sertifikasi'));
+		}
+		else
+		{
+			$this->session->set_flashdata('message', 'Data gagal dihapus');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('batch_sertifikasi'));
+		}
+	}
+
 }
 
 /* End of file Batch_sertifikasi.php */
