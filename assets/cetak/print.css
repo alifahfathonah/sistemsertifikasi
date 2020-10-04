@@ -1,0 +1,156 @@
+/* CSS Document */
+
+#common {
+    page: A4;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ #page-khs {
+    clear: both;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    overflow: hidden;
+    padding: 1.0cm 1.0cm;
+ }
+ 
+ #page-khs h1 {
+    font-size: 20px;
+    margin: 0px 0px 0px 0px;
+    padding: 4px 0px 0px 0px;
+ }
+ 
+ #page-khs h2 {
+    font-size: 18px;
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ #page-khs h3 {
+    font-size: 12px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ #page-khs h4 {
+    font-size: 12px;
+    text-align: center;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ #page-khs p {
+    line-height: 14px;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ .header-khs {
+    margin: 0px 0px 20px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ .header-khs img {
+    float: left;
+    margin: 0px 10px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ .table-common {
+    border: none;
+    font-size: 11px;
+    border-collapse: collapse;
+    margin: 30px 0px 20px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ .table-common th {
+    font-weight: bold;
+    text-align: left;
+    vertical-align: top;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 20px 3px 0px; 
+ }
+ 
+ .table-common td {
+    vertical-align: top;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 15px 3px 0px; 
+ }
+ 
+ .table-khs {
+    border: 1px solid #000000;
+    font-size: 11px;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ .table-khs th {
+    background-color: #EEEEEE;
+    border: 1px solid #000000;
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    padding: 2px 5px 2px 5px;  
+ }
+ 
+ .table-khs td {
+    border: 1px solid #000000;
+    text-align: center;
+    vertical-align: top;
+    margin: 0px 0px 0px 0px;
+    padding: 1px 5px 1px 5px;  
+ }
+ 
+ .table-khs1 {
+   
+    font-size: 11px;
+    font-family: Tahoma, Arial, Helvetica, sans-serif;
+    border-collapse:collapse;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    border-top: none;
+ }
+ 
+ .table-khs1 th {
+    background-color: #EEEEEE;
+ 
+    text-align: center;
+    margin: 0px 0px 0px 0px;
+    padding: 2px 5px 2px 5px;  
+ }
+ 
+ .table-khs1 td {
+  border-left:1px solid #000000;
+  border-right:1px solid #000000;
+  border-bottom:1px solid #000000;
+     border-top:none;
+    vertical-align: top;
+    margin: 0px 0px 0px 0px;
+    padding: 1px 5px 1px 5px;  
+ }
+ 
+ 
+ .signature {
+    float: right;
+    text-align: center;
+    width: 5.0cm;
+    margin: 30px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+ }
+ 
+ .signature img {
+    z-index: 6;
+    position: relative;
+    margin: 0px 0px 0px -1.5cm;
+ }
+ 
+ .left {
+    text-align: left !important;
+ }
+ 
+ .right {
+    text-align: left;
+ }
