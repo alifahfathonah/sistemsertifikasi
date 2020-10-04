@@ -14,6 +14,7 @@ class Dashboard extends CI_Controller {
         }
 
 		$data = [
+			'title'	=> 'Dashboard',
 			'view'	=> 'admin/index'
 		];
 

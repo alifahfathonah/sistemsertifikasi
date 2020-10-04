@@ -60,10 +60,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-            <li class="nav-header">Menu</li>
-
-
-
             <li class="nav-item">
               <a href="<?php echo base_url() ?>dashboard" class="nav-link <?php echo ($this->uri->segment(1) == 'dashboard') ? 'active' : ''; ?>">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -134,14 +130,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     foreach($menu as $m)
                     {
                       echo'
-                        <ul class="nav nav-treeview">
-                         <li class="nav-item">
-                            <a href="'. base_url() . $m->mdl_link . '" class="nav-link '. ($this->uri->segment(1) == $m->mdl_link ? 'active' : '') .'">
-                              <i class="'. $m->mdl_icon .' nav-icon"></i>
-                              <p>'. $m->mdl_modul .'</p>
-                            </a>
-                          </li>
-                        </ul>';
+                      <ul class="nav nav-treeview">
+                       <li class="nav-item">
+                          <a href="'. base_url() . $m->mdl_link . '" class="nav-link '. ($this->uri->segment(1) == $m->mdl_link ? 'active' : '') .'">
+                            <i class="'. $m->mdl_icon .' nav-icon"></i>
+                            <p>'. $m->mdl_modul .'</p>
+                          </a>
+                        </li>
+                      </ul>';
                     }
                 }
               }
