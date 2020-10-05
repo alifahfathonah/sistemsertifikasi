@@ -10,21 +10,7 @@ class Auth extends CI_Controller {
 	}
 
 	public function index()
-	{
-		// Jika ada session user mahasiswa maka diblok
-		if (isset($this->session->userdata['npm'])) {
-			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai mahasiswa !');
-			$this->session->set_flashdata('tipe', 'error');
-			redirect(base_url('home'));
-		}
-		
-		// Jika ada session user umum maka diblok
-		if (isset($this->session->userdata['email'])) {
-			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai umum !');
-			$this->session->set_flashdata('tipe', 'error');
-			redirect(base_url('home'));
-		}
-		
+	{	
 		if(isset($this->session->userdata['username']))
 		{
 			redirect('dashboard');

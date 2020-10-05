@@ -411,7 +411,107 @@ class Seminar extends CI_Controller {
 		}
 	}
 
-}
+	public function buktibayarumum($id)
+	{
+		if(!isset($this->session->userdata['email']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('akun_umum');
+		}
+		$data = [
+			'bukti'         => $this->seminar_model->getdatasebelumbayar($id, $this->session->userdata('email')),
+			'view'	=> 'akun/umum/buktibayar'
+		];
+		$this->load->view('template/wrapper', $data);
+	}
 
+	public function upload_umum()
+	{
+		$this->form_validation->set_rules('nama_bank', 'Nama Bank', 'required|trim');
+		$this->form_validation->set_rules('no_rek', 'No Rekening', 'required|trim|numeric');
+		$this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'required|trim');
+
+		$this->form_validation->set_message('required', '{field} harus diisi');
+
+		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+
+		if ($this->form_validation->run() == FALSE) 
+		{
+			$this->session->set_flashdata('message', 'Mohon isi sesuai dengan format!');
+			$this->session->set_flashdata('tipe', 'error');
+			$this->buktibayarumum($this->input->post('seminar_id'));
+		} 
+		else 
+		{
+			if(empty($_FILES['buktibayar']['name']))
+			{
+				$data = [
+					'su_bank'           => $this->input->post('nama_bank'),
+					'su_norekening'     => $this->input->post('no_rek'),
+					'su_namapemilik'    => $this->input->post('nama_pemilik'),
+					'su_status'         => "Validasi Pembayaran",
+					'su_userupdate'     => $this->session->userdata('email'),
+					'su_lastupdate'     => date('Y-m-d H:i:s')
+				];
+
+				if($this->seminar_model->updatebayarumum($this->input->post('seminar_id'), $this->session->userdata('email'), $data))
+				{
+					$this->session->set_flashdata('message', 'Bukti bayar berhasil diupload');
+					$this->session->set_flashdata('tipe', 'success');
+					redirect(base_url('akun_umum/akun'));
+				} 
+				else 
+				{
+					$this->session->set_flashdata('message', 'Bukti bayar gagal diupload');
+					$this->session->set_flashdata('tipe', 'success');
+					redirect(base_url('akun_umum/akun'));
+				}
+			}
+			else
+			{
+				$config['upload_path']          = './assets/transfer_seminar_umum/';
+				$config['allowed_types']        = 'jpeg|jpg|png';
+				$config['file_name']            = $this->session->userdata('ktp') . '_' . $this->input->post('seminar_id');
+				$config['overwrite']            = true;
+
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+
+				if (!$this->upload->do_upload('buktibayar'))
+				{
+					$this->session->set_flashdata('message', $this->upload->display_errors('<p>', '</p>'));
+					$this->session->set_flashdata('tipe', 'warning');
+					$this->buktibayarumum($this->input->post('seminar_id'));
+				}
+				else
+				{
+					$data = [
+						'su_bank'           => $this->input->post('nama_bank'),
+						'su_norekening'     => $this->input->post('no_rek'),
+						'su_namapemilik'    => $this->input->post('nama_pemilik'),
+						'su_bukti'          => $this->upload->data('file_name'),
+						'su_status'         => "Validasi Pembayaran",
+						'su_userupdate'     => $this->session->userdata('email'),
+						'su_lastupdate'     => date('Y-m-d H:i:s')
+					];
+
+					if($this->seminar_model->updatebayarumum($this->input->post('seminar_id'), $this->session->userdata('email'), $data))
+					{
+						$this->session->set_flashdata('message', 'Bukti bayar berhasil diupload');
+						$this->session->set_flashdata('tipe', 'success');
+						redirect(base_url('akun_umum/akun'));
+					} 
+					else 
+					{
+						$this->session->set_flashdata('message', 'Bukti bayar gagal diupload');
+						$this->session->set_flashdata('tipe', 'success');
+						redirect(base_url('akun_umum/akun'));
+					}
+				}
+			}
+		}
+	}
+}
 /* End of file Seminar.php */
 /* Location: ./application/controllers/Seminar.php */

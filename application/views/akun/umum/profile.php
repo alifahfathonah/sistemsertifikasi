@@ -170,12 +170,12 @@
 											</td>
 											<td>
 												<?php if ($s->su_status == "Menunggu Pembayaran") { ?>
-													<a href="<?php echo base_url('seminar/form_upload_umum/' . $s->smr_id . '/' . $this->session->userdata('email')); ?>" class="btn btn-warning btn-sm">Upload Bukti Bayar</a>
+													<a href="<?php echo base_url('seminar/buktibayarumum/' . $s->smr_id); ?>" class="btn btn-warning btn-sm">Upload Bukti Bayar</a>
 												<?php } else { ?>
 													<?php if ($s->su_status == "Lunas") { ?>
 													<?php } else { ?>
 														<?php if($s->su_status == "Tolak" || $s->su_status == "Validasi Pembayaran") { ?>
-															<a href="<?php echo base_url('seminar/form_upload_umum/' . $s->smr_id . '/' . $this->session->userdata('email')); ?>" class="btn btn-warning btn-sm">Upload Ulang Bukti Bayar</a>
+															<a href="<?php echo base_url('seminar/buktibayarumum/' . $s->smr_id); ?>" class="btn btn-warning btn-sm">Upload Ulang Bukti Bayar</a>
 														<?php } }
 													} ?>
 												</td>
