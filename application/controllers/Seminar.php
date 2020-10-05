@@ -30,123 +30,276 @@ class Seminar extends CI_Controller {
 
 	public function tambah()
 	{
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('auth');
+		}
 		$data = [
 			'title'	=> 'Seminar',
+			'model'      => $this->modelsertifikat_model->listmodelsertifikat(),
 			'view'	=> 'admin/seminar/tambah'
 		];
 		$this->load->view('admin/template/wrapper', $data);
 	}
 
+	public function uploadbannerupdate()
+	{
+
+		$namafile = $this->input->post('seminar_id') . '_' . "Banner";
+
+		$config['upload_path']          = './assets/banner_seminar/';
+		$config['allowed_types']        = 'gif|jpeg|jpg|png';
+		$config['file_name']            = $namafile;
+		$config['overwrite']            = true;
+
+		$this->upload->initialize($config);
+
+		if ($this->upload->do_upload('gambar')) {
+			return $this->upload->data('file_name');
+		} else {
+			$this->upload->display_errors();
+			die;
+		}
+	}
+
 	public function simpan()
 	{
-		$this->form_validation->set_rules('nama', 'Nama Sertifikasi', 'required');
-		$this->form_validation->set_rules('prodi', 'Prodi', 'required');
-		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('nama_seminar', 'Nama Seminar', 'required');
+		$this->form_validation->set_rules('tanggal_pelaksanaan', 'Tanggal Pelaksanaan', 'required');
+		$this->form_validation->set_rules('tempat_pelaksanaan', 'Tempat Pelaksanaan', 'required|required');
+		$this->form_validation->set_rules('jam_mulai', 'Jam Mulai', 'required');
+		$this->form_validation->set_rules('jam_selesai', 'Jam Selesai', 'required');
+		$this->form_validation->set_rules('nama_moderator', 'Nama Moderator', 'required');
+		$this->form_validation->set_rules('biaya_mhs', 'Biaya Mahasiswa', 'required');
+		$this->form_validation->set_rules('biaya_umum', 'Biaya umum', 'required');
+		$this->form_validation->set_rules('model_sertifikat', 'Model sertifikat', 'required');
+		$this->form_validation->set_rules('jumlah_max_peserta', 'Jumlah Max Peserta', 'required|trim');
 
-		$this->form_validation->set_message('required', '{field} ini harus diisi !');
+		$this->form_validation->set_message('required', '{field} harus diisi');
+
 		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
 
-		if ($this->form_validation->run() == false) 
-		{
-			$this->session->set_flashdata('message', 'Mohon isi sesuai dengan format');
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('message', 'Mohon isi data sesuai dengan format!');
 			$this->session->set_flashdata('tipe', 'error');
 			$this->tambah();
-		} 
-		else 
-		{
-			$data = [
-				'cert_sertifikasi'	=> $this->input->post('nama'),
-				'cert_prodi'		=> $this->input->post('prodi'),
-				'cert_isaktif'		=> $this->input->post('status'),
-				'cert_userupdate'	=> $this->session->userdata('username'),
-				'cert_lastupdate'	=> date("Y-m-d H:i:s"),
-			];
-			if ($this->sertifikasi_model->insert_sertifikasi($data)) 
+		} else {
+
+			$namafile = $this->seminar_model->seminarkode();
+
+			$config['upload_path']          = './assets/banner_seminar/';
+			$config['allowed_types']        = 'gif|jpeg|jpg|png';
+			$config['file_name']            = $namafile . '_' . "Banner";
+			$config['overwrite']            = true;
+
+			$this->load->library('upload', $config);
+			$this->upload->initialize($config);
+
+			if (!$this->upload->do_upload('gambar'))
 			{
-				$this->session->set_flashdata('message', 'Sertifikasi Berhasil Disimpan');
-				$this->session->set_flashdata('tipe', 'success');
-				redirect(base_url('sertifikasi'));
-			} 
-			else 
+				$this->session->set_flashdata('message', $this->upload->display_errors('<p>', '</p>'));
+				$this->session->set_flashdata('tipe', 'warning');
+				$this->tambah();
+			}
+			else
 			{
-				$this->session->set_flashdata('message', 'Sertifikasi Gagal Disimpan');
-				$this->session->set_flashdata('tipe', 'error');
-				redirect(base_url('sertifikasi'));
+
+				$data = [
+					'smr_acara'                => $this->input->post('nama_seminar'),
+					'smr_tanggal'              => $this->input->post('tanggal_pelaksanaan'),
+					'smr_tempat'               => $this->input->post('tempat_pelaksanaan'),
+					'smr_jam_mulai'            => $this->input->post('jam_mulai'),
+					'smr_jam_selesai'          => $this->input->post('jam_selesai'),
+					'smr_moderator'            => $this->input->post('nama_moderator'),
+					'smr_biaya_mhs'            => $this->input->post('biaya_mhs'),
+					'smr_biaya_umum'           => $this->input->post('biaya_umum'),
+					'smr_link_online'          => $this->input->post('link'),
+					'smr_banner'               => $this->upload->data('file_name'),
+					'smr_keterangan'           => $this->input->post('keterangan'),
+					'smr_jumlahmax'            => $this->input->post('jumlah_max_peserta'),
+					'smr_model_sertifikat'     => $this->input->post('model_sertifikat'),
+					'smr_userupdate'           => $this->session->userdata('username'),
+					'smr_lastupdate'           => date('Y-m-d H:i:s')
+				];
+
+				if ($this->seminar_model->insert($data)) {
+					$this->session->set_flashdata('message', 'Data berhasil ditambah');
+					$this->session->set_flashdata('tipe', 'success');
+					redirect(base_url('seminar'));
+				} else {
+					$this->session->set_flashdata('message', 'Data gagal ditambah');
+					$this->session->set_flashdata('tipe', 'error');
+					redirect(base_url('seminar'));
+				}
 			}
 		}
 	}
 
 	public function ubah($id)
 	{
-		$row = $this->sertifikasi_model->get_sertifikasi($id);
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('auth');
+		}
+
+		$row = $this->seminar_model->listseminarbyid($id);
 
 		if($row)
 		{
 			$data = [
-				'title'	=> 'Sertifikasi',
-				'list'			=> $row,
-				'view'	=> 'admin/sertifikasi/ubah'
+				'title'	=> 'Seminar',
+				'seminar'	=> $row,
+				'model'      => $this->modelsertifikat_model->listmodelsertifikat(),
+				'view'	=> 'admin/seminar/ubah'
 			];
+
 			$this->load->view('admin/template/wrapper', $data);
 		}
 		else
 		{
 			$this->session->set_flashdata('message', 'Data tidak ada');
 			$this->session->set_flashdata('tipe', 'error');
-			redirect(site_url('sertifikasi'));
+			redirect(site_url('seminar'));
 		}
 		
 	}
 
 	public function simpan_perubahan()
 	{
-		$this->form_validation->set_rules('nama', 'Nama Sertifikasi', 'required');
-		$this->form_validation->set_rules('prodi', 'Prodi', 'required');
-		$this->form_validation->set_rules('status', 'Status', 'required');
+		$this->form_validation->set_rules('nama_seminar', 'Nama Seminar', 'required');
+		$this->form_validation->set_rules('tanggal_pelaksanaan', 'Tanggal Pelaksanaan', 'required');
+		$this->form_validation->set_rules('tempat_pelaksanaan', 'Tempat Pelaksanaan', 'required|required');
+		$this->form_validation->set_rules('jam_mulai', 'Jam Mulai', 'required');
+		$this->form_validation->set_rules('jam_selesai', 'Jam Selesai', 'required');
+		$this->form_validation->set_rules('nama_moderator', 'Nama Moderator', 'required|trim');
+		$this->form_validation->set_rules('biaya_mhs', 'Biaya Mahasiswa', 'required|trim');
+		$this->form_validation->set_rules('biaya_umum', 'Biaya umum', 'required|trim');
+		$this->form_validation->set_rules('jumlah_max_peserta', 'Jumlah Max Peserta', 'required|trim');
+		$this->form_validation->set_rules('model_sertifikat', 'Model sertifikat', 'required');
 
-		$this->form_validation->set_message('required', '{field} ini harus diisi !');
+		$this->form_validation->set_message('required', '{field} harus diisi');
+
 		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
 
-		if ($this->form_validation->run() == false) 
-		{
-			$this->session->set_flashdata('message', 'Mohon isi sesuai dengan format');
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('message', 'Mohon isi data sesuai dengan format!');
 			$this->session->set_flashdata('tipe', 'error');
-			$this->ubah($this->input->post('id_sertifikasi'));
-		} 
-		else 
-		{
-			$data = [
-				'cert_sertifikasi'	=> $this->input->post('nama'),
-				'cert_prodi'		=> $this->input->post('prodi'),
-				'cert_isaktif'		=> $this->input->post('status'),
-				'cert_userupdate'	=> $this->session->userdata('username'),
-				'cert_lastupdate'	=> date("Y-m-d H:i:s"),
-			];
-			if ($this->sertifikasi_model->update_sertifikasi($this->input->post('id_sertifikasi'),$data)) 
+			$this->update($this->input->post('seminar_id'));
+		} else {
+
+			if($_FILES['gambar']['name'] != "")
 			{
-				$this->session->set_flashdata('message', 'Sertifikasi Berhasil diubah');
-				$this->session->set_flashdata('tipe', 'success');
-				redirect(base_url('sertifikasi'));
-			} 
-			else 
+				$namafile = $this->input->post('seminar_id') . '_' . "Banner";
+
+				$getid = $this->modelsertifikat_model->getid();
+				$config['upload_path']          = './assets/banner_seminar/';
+				$config['allowed_types']        = 'gif|jpeg|jpg|png';
+				$config['file_name']            = $namafile;
+				$config['overwrite']            = true;
+
+				$this->load->library('upload', $config);
+				$this->upload->initialize($config);
+
+				if (!$this->upload->do_upload('gambar'))
+				{
+					$this->session->set_flashdata('message', $this->upload->display_errors('<p>', '</p>'));
+					$this->session->set_flashdata('tipe', 'warning');
+					$this->ubah($this->input->post('model_id'));
+				}
+				else
+				{
+					$data = [
+						'smr_acara'                => $this->input->post('nama_seminar'),
+						'smr_tanggal'              => $this->input->post('tanggal_pelaksanaan'),
+						'smr_tempat'               => $this->input->post('tempat_pelaksanaan'),
+						'smr_jam_mulai'            => $this->input->post('jam_mulai'),
+						'smr_jam_selesai'          => $this->input->post('jam_selesai'),
+						'smr_moderator'            => $this->input->post('nama_moderator'),
+						'smr_biaya_mhs'            => $this->input->post('biaya_mhs'),
+						'smr_biaya_umum'           => $this->input->post('biaya_umum'),
+						'smr_link_online'          => $this->input->post('link'),
+						'smr_model_sertifikat'     => $this->input->post('model_sertifikat'),
+						'smr_jumlahmax'            => $this->input->post('jumlah_max_peserta'),
+						'smr_banner'               => $this->upload->data('file_name'),
+						'smr_keterangan'           => $this->input->post('keterangan'),
+						'smr_userupdate'           => $this->session->userdata('username'),
+						'smr_lastupdate'           => date('Y-m-d H:i:s')
+					];
+
+					if ($this->seminar_model->update($this->input->post('seminar_id'), $data)) 
+					{
+						$this->session->set_flashdata('message', 'Data berhasil diubah');
+						$this->session->set_flashdata('tipe', 'success');
+						redirect(base_url('seminar'));
+					} 
+					else 
+					{
+						$this->session->set_flashdata('message', 'Data gagal diubah');
+						$this->session->set_flashdata('tipe', 'error');
+						redirect(base_url('seminar'));
+					}
+				}
+			}
+			else
 			{
-				$this->session->set_flashdata('message', 'Sertifikasi Gagal diubah');
-				$this->session->set_flashdata('tipe', 'error');
-				redirect(base_url('sertifikasi'));
+				$data = [
+					'smr_acara'                => $this->input->post('nama_seminar'),
+					'smr_tanggal'              => $this->input->post('tanggal_pelaksanaan'),
+					'smr_tempat'               => $this->input->post('tempat_pelaksanaan'),
+					'smr_jam_mulai'            => $this->input->post('jam_mulai'),
+					'smr_jam_selesai'          => $this->input->post('jam_selesai'),
+					'smr_moderator'            => $this->input->post('nama_moderator'),
+					'smr_biaya_mhs'            => $this->input->post('biaya_mhs'),
+					'smr_biaya_umum'           => $this->input->post('biaya_umum'),
+					'smr_link_online'          => $this->input->post('link'),
+					'smr_model_sertifikat'     => $this->input->post('model_sertifikat'),
+					'smr_jumlahmax'            => $this->input->post('jumlah_max_peserta'),
+					'smr_banner'               => $this->input->post('oldfile'),
+					'smr_keterangan'           => $this->input->post('keterangan'),
+					'smr_userupdate'           => $this->session->userdata('username'),
+					'smr_lastupdate'           => date('Y-m-d H:i:s')
+				];
+
+				if ($this->seminar_model->update($this->input->post('seminar_id'), $data)) 
+				{
+					$this->session->set_flashdata('message', 'Data berhasil diubah');
+					$this->session->set_flashdata('tipe', 'success');
+					redirect(base_url('seminar'));
+				} 
+				else 
+				{
+					$this->session->set_flashdata('message', 'Data gagal diubah');
+					$this->session->set_flashdata('tipe', 'error');
+					redirect(base_url('seminar'));
+				}
 			}
 		}
 	}
 
 	function delete($id)
 	{	
-		if ($this->sertifikasi_model->delete_sertifikasi($id)) {
-			$this->session->set_flashdata('message', 'Sertifikasi Berhasil Dihapus');
-			$this->session->set_flashdata('tipe', 'success');
-			redirect(base_url('sertifikasi'));
-		} else {
-			$this->session->set_flashdata('message', 'Sertifikasi Gagal Dihapus');
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
 			$this->session->set_flashdata('tipe', 'error');
-			redirect(base_url('sertifikasi'));
+			redirect('auth');
+		}
+
+		if ($this->seminar_model->delete($id)) 
+		{
+			$this->session->set_flashdata('message', 'Data berhasil dihapus');
+			$this->session->set_flashdata('tipe', 'success');
+			redirect(base_url('seminar'));
+		} 
+		else 
+		{
+			$this->session->set_flashdata('message', 'Data gagal dihapus');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('seminar'));
 		}
 	}
 
