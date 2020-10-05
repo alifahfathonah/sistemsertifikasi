@@ -24,6 +24,7 @@ class Auth extends CI_Controller {
 			$this->session->set_flashdata('tipe', 'error');
 			redirect(base_url('home'));
 		}
+		
 		if(isset($this->session->userdata['username']))
 		{
 			redirect('dashboard');
