@@ -81,6 +81,7 @@
                  <div class="form-group">
                    <label>Banner</label>
                    <input type="file" class="form-control" name="gambar">
+                   <?php echo form_error('gambar') ?>
                  </div>
 
                  <div class="form-group">

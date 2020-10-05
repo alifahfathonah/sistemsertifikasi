@@ -44,26 +44,6 @@ class Seminar extends CI_Controller {
 		$this->load->view('admin/template/wrapper', $data);
 	}
 
-	public function uploadbannerupdate()
-	{
-
-		$namafile = $this->input->post('seminar_id') . '_' . "Banner";
-
-		$config['upload_path']          = './assets/banner_seminar/';
-		$config['allowed_types']        = 'gif|jpeg|jpg|png';
-		$config['file_name']            = $namafile;
-		$config['overwrite']            = true;
-
-		$this->upload->initialize($config);
-
-		if ($this->upload->do_upload('gambar')) {
-			return $this->upload->data('file_name');
-		} else {
-			$this->upload->display_errors();
-			die;
-		}
-	}
-
 	public function simpan()
 	{
 		$this->form_validation->set_rules('nama_seminar', 'Nama Seminar', 'required');
@@ -76,6 +56,11 @@ class Seminar extends CI_Controller {
 		$this->form_validation->set_rules('biaya_umum', 'Biaya umum', 'required');
 		$this->form_validation->set_rules('model_sertifikat', 'Model sertifikat', 'required');
 		$this->form_validation->set_rules('jumlah_max_peserta', 'Jumlah Max Peserta', 'required|trim');
+
+		if($_FILES['gambar']['name'] == "")
+		{
+			$this->form_validation->set_rules('gambar', 'Banner Seminar', 'required');
+		}
 
 		$this->form_validation->set_message('required', '{field} harus diisi');
 
