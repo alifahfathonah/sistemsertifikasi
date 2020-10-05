@@ -106,7 +106,7 @@
 											</td>
 											<td><?php echo $s->srtu_catatan ?></td>
 											<td>
-												<a href="<?php echo base_url('Akun/detailprofil/' . $s->srtu_sertifikasi); ?>" class="btn btn-info btn-sm">Detail</a>
+												<a href="<?php echo base_url('akun_umum/detailsertifikasi/' . $s->srtu_sertifikasi); ?>" class="btn btn-info btn-sm">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

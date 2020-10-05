@@ -77,7 +77,6 @@ class Sertifikasi_model extends CI_Model {
 
 	function listsertifikasibyuser2($email)
 	{
-		$email = $this->session->userdata('email');
 		$this->db->join('ssc_subsertifikasi_umum', 'ssc_subsertifikasi_umum.ssu_sertifikasi_umum = ssc_sertifikasi_umum.srtu_id');
 		$this->db->join('ssc_sertifikasi', 'ssc_sertifikasi.cert_id = ssc_sertifikasi_umum.srtu_sertifikasi');
 		$this->db->join('ssc_subsertifikasi', 'ssc_subsertifikasi.scert_id = ssc_subsertifikasi_umum.ssu_subsertifikasi');

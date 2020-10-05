@@ -53,6 +53,27 @@ class Akun_umum extends CI_Controller {
 		$this->load->view('template/wrapper', $data);
 	}
 
+	public function detailsertifikasi($id_sertifikasi)
+	{
+		if (!isset($this->session->userdata['email'])) 
+		{
+			redirect(base_url('akun_umum'));
+		}
+
+		$data = [
+			'nama'          => $this->session->userdata['nama'],
+			'email'         => $this->session->userdata['email'],
+			'ktp'           => $this->session->userdata['ktp'],
+			'wa'            => $this->session->userdata['wa'],
+			'asal'          => $this->session->userdata['asal'],
+			'seminar'       => $this->seminar_model->listseminarbyuser($this->session->userdata['email']),
+			'sertifikasi'   => $this->sertifikasi_model->listsertifikasibyuserdetail($id_sertifikasi),
+			'view'			=> 'akun/umum/profile-detail'
+		];
+
+		$this->load->view('template/wrapper', $data);
+	}
+
 	public function login()
 	{
 		$this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
