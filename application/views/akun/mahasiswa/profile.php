@@ -86,7 +86,7 @@
 											</td>
 											<td><?php echo $s->sm_catatan ?></td>
 											<td>
-												<a href="<?php echo base_url('Akun_mahasiswa/detailprofil/' . $s->sm_sertifikasi); ?>" class="btn btn-info btn-sm">Detail</a>
+												<a href="<?php echo base_url('akun_mahasiswa/detailsertifikasi/' . $s->sm_sertifikasi); ?>" class="btn btn-info btn-sm">Detail</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>
@@ -166,7 +166,7 @@
 
 							<div class="text-center mt-5">
 
-								<a href="<?php echo base_url('') ?>logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+								<a href="<?php echo base_url() ?>logout" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
 
 							</div>
 

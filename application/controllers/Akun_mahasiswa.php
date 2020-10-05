@@ -50,6 +50,24 @@ class Akun_mahasiswa extends CI_Controller {
 		$this->load->view('template/wrapper', $data);
 	}
 
+	public function detailsertifikasi($id_sertifikasi)
+	{
+		if (!isset($this->session->userdata['npm'])) 
+		{
+			redirect(base_url('akun_mahasiswa'));
+		}
+
+		$data = [
+			'nama'          => $this->session->userdata['nama'],
+			'jurusan'       => $this->session->userdata['jurusan'],
+			'npm'           => $this->session->userdata['npm'],
+			'sertifikasi'   => $this->sertifikasi_model->listsertifikasibymhs($id_sertifikasi),
+			'view'			=> 'akun/mahasiswa/profile-detail'
+		];
+
+		$this->load->view('template/wrapper', $data);
+	}
+
 	public function login()
 	{
 		$this->form_validation->set_rules('username', 'Username', 'required|trim');

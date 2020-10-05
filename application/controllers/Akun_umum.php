@@ -66,7 +66,6 @@ class Akun_umum extends CI_Controller {
 			'ktp'           => $this->session->userdata['ktp'],
 			'wa'            => $this->session->userdata['wa'],
 			'asal'          => $this->session->userdata['asal'],
-			'seminar'       => $this->seminar_model->listseminarbyuser($this->session->userdata['email']),
 			'sertifikasi'   => $this->sertifikasi_model->listsertifikasibyuserdetail($id_sertifikasi),
 			'view'			=> 'akun/umum/profile-detail'
 		];
