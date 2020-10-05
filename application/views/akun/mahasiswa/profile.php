@@ -150,11 +150,11 @@
 												</td>
 												<td>
 													<?php if ($s->smhs_status == "Menunggu Pembayaran") { ?>
-														<a href="<?php echo base_url('seminar/form_upload_mahasiswa/' . $s->smr_id . '/' . $this->session->userdata('npm')); ?>" class="btn btn-warning btn-sm">Upload Bukti Bayar</a>
+														<a href="<?php echo base_url('seminar/buktibayarmahasiswa/' . $s->smr_id . '/' . $this->session->userdata('npm')); ?>" class="btn btn-warning btn-sm">Upload Bukti Bayar</a>
 													<?php } else { ?>
 														<?php if ($s->smhs_status == "Lunas") { ?>
 														<?php } else { ?>
-															<a href="<?php echo base_url('seminar/form_upload_mahasiswa/' . $s->smr_id . '/' . $this->session->userdata('npm')); ?>" class="btn btn-warning btn-sm">Upload Ulang Bukti Bayar</a>
+															<a href="<?php echo base_url('seminar/buktibayarmahasiswa/' . $s->smr_id . '/' . $this->session->userdata('npm')); ?>" class="btn btn-warning btn-sm">Upload Ulang Bukti Bayar</a>
 														<?php }
 													} ?>
 												</td>
