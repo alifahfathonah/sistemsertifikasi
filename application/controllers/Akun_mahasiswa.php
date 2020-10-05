@@ -13,11 +13,6 @@ class Akun_mahasiswa extends CI_Controller {
 			redirect(base_url('home'));
 		}
 		// Jika ada session user admin maka diblok
-		if (isset($this->session->userdata['username'])) {
-			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai admin !');
-			$this->session->set_flashdata('tipe', 'error');
-			redirect(base_url('dashboard'));
-		}
 	}
 
 	public function index()

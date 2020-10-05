@@ -45,7 +45,8 @@
                        <td><?php echo $j->js_tempat ?></td>
                        <td><?php echo $j->js_link ?></td>
                        <td width="20%">
-                        <a href="<?php echo base_url('jadwal_subsertifikasi/update/' . $j->js_batch) ?>" class="btn btn-warning btn-sm">Ubah</a>
+                        <a href="<?php echo base_url('jadwal_subsertifikasi/ubah/' . $j->js_batch) ?>" class="btn btn-warning btn-sm">Ubah</a>
+
                         <a href="<?php echo base_url('jadwal_subsertifikasi/delete/' . $j->js_batch) ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger btn-sm">Hapus</a>
                       </td>
                     </tr>

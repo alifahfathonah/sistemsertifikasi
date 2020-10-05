@@ -7,13 +7,14 @@ class Home extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('seminar_model');
+		$this->load->model('batchsertifikasi_model');
 		$this->load->model('jadwalsubsertifikasi_model');
 	}
 
 	public function index()
 	{
 		$data = [
-			'batch'     => $this->jadwalsubsertifikasi_model->list(),
+			'batch'     => $this->jadwalsubsertifikasi_model->jadwal_batch(),
 			'seminar'   => $this->seminar_model->listseminar(),
 			'view'	=> 'index'
 		];
@@ -30,6 +31,17 @@ class Home extends CI_Controller {
 
 		$data = [
 			'view'	=> 'akun/choice'
+		];
+
+		$this->load->view('template/wrapper', $data);
+	}
+
+	public function detail($id_batch)
+	{
+		$cek = $this->batchsertifikasi_model->listbatchbyidhome($id_batch);
+		$data = [
+			'batch'     => $cek,
+			'view'	=> 'detail-batch'
 		];
 
 		$this->load->view('template/wrapper', $data);

@@ -22,6 +22,16 @@ class Batchsertifikasi_model extends CI_Model
         return $this->db->get($this->table)->row();
     }
 
+    function listbatchbyidhome($id)
+    {
+        $this->db->join('ssc_subsertifikasi', 'ssc_subsertifikasi.scert_id = ssc_batch_sertifikasi.bs_subsertifikasi');
+        $this->db->join('ssc_sertifikasi', 'ssc_sertifikasi.cert_id = ssc_subsertifikasi.scert_sertifikasi');
+        $this->db->join('ssc_pelatih_subsertifikasi', 'ssc_pelatih_subsertifikasi.ps_batch = ssc_batch_sertifikasi.bs_id');
+        $this->db->join('ssc_jadwal_subsertifikasi', 'ssc_jadwal_subsertifikasi.js_batch = ssc_batch_sertifikasi.bs_id');
+        $this->db->where($this->id, $id);
+        return $this->db->get($this->table)->row();
+    }
+
     function insert($data)
     {
         return $this->db->insert($this->table, $data);

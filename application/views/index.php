@@ -28,39 +28,40 @@
             </div>
 
             <!-- Sertififkasi -->
+            <?php  
 
-            <div class="row justify-content-center">
-                <div class="col-sm-6 col-lg-4">
-                    <div class="single_special_cource">
-                        <img src="<?php echo base_url() ?>/assets/frontend/img/special_cource_1.png" class="special_img" alt="">
-                        <div class="special_cource_text">
-                            <a href="course-details.html" class="btn_4">Web Development</a>
-                            <h4>$130.00</h4>
-                            <a href="course-details.html"><h3>Web Development</h3></a>
-                            <p>Which whose darkness saying were life unto fish wherein all fish of together called</p>
-                            <div class="author_info">
-                                <div class="author_img">
-                                    <img src="<?php echo base_url() ?>/assets/frontend/img/author/author_1.png" alt="">
-                                    <div class="author_info_text">
-                                        <p>Conduct by:</p>
-                                        <h5><a href="#">James Well</a></h5>
-                                    </div>
-                                </div>
-                                <div class="author_rating">
-                                    <div class="rating">
-                                        <a href="#"><img src="<?php echo base_url() ?>/assets/frontend/img/icon/color_star.svg" alt=""></a>
-                                        <a href="#"><img src="<?php echo base_url() ?>/assets/frontend/img/icon/color_star.svg" alt=""></a>
-                                        <a href="#"><img src="<?php echo base_url() ?>/assets/frontend/img/icon/color_star.svg" alt=""></a>
-                                        <a href="#"><img src="<?php echo base_url() ?>/assets/frontend/img/icon/color_star.svg" alt=""></a>
-                                        <a href="#"><img src="<?php echo base_url() ?>/assets/frontend/img/icon/star.svg" alt=""></a>
-                                    </div>
-                                    <p>3.8 Ratings</p>
-                                </div>
+            foreach($batch as $b)
+            {
+                ?>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="single_special_cource">
+                            <img src="<?php echo base_url('assets/banner_batchsertifikasi/' . $b->bs_banner) ?>" class="special_img" alt="">
+                            <div class="special_cource_text">
+                                <a href="<?php echo base_url('home/detail/' . $b->bs_id) ?>" class="btn_4"><?php echo $b->cert_sertifikasi ?></a>
+                                <a href="<?php echo base_url('home/detail/' . $b->bs_id) ?>"><h3><?php echo $b->cert_sertifikasi .' - '. $b->scert_subsertifikasi ?></h3></a>
+
+                                <p style="margin-bottom: 0px;" class="text-dark">Biaya:</p>
+
+                                <p class="text-dark" style="margin-bottom: 0px;">Mahasiswa : <?php echo 'Rp.' . number_format($b->bs_biaya_mhs, 2, ',','.') ?></p>
+                                
+                                <p class="text-dark">Umum : <?php echo 'Rp.' . number_format($b->bs_biaya_umum, 2, ',','.') ?></p>
+                                
+                                <hr>
+                                
+                                <p class="text-dark"><b>Tanggal Pendaftaran : <?php echo date('d M Y',strtotime($b->bs_mulai_daftar)) .' s.d. ' . date('d M Y',strtotime($b->bs_terakhir_daftar)) ?></b></p>
+                                
+                                <p><i class="fas fa-clock"></i> <b>Jadwal Ujian : <?php echo date('d M Y', strtotime($b->js_tanggal)) . ' <br>'  . $b->js_mulai .' - '. $b->js_selesai ?></b></p>
+                                
+                                <p><i class="fa fa-map-marker"></i> <b> Lokasi : <?php echo $b->js_tempat ?></b></p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <?php 
+            }
+            ?>
 
             <!-- End Sertifikasi -->
         </div>

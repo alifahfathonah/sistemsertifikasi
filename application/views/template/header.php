@@ -55,7 +55,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="collapse navbar-collapse main-menu-item justify-content-end"
                     id="navbarSupportedContent">
                     <ul class="navbar-nav align-items-center">
-                        <li class="nav-item active">
+
+                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo base_url('home') ?>">Home</a>
                         </li>
                         <li class="nav-item">
