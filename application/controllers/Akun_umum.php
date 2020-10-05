@@ -7,18 +7,16 @@ class Akun_umum extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('users_model');
+		$this->load->model('seminar_model');
+		$this->load->model('sertifikasi_model');
 		// Jika ada session user mahasiswa maka diblok
+
 		if (isset($this->session->userdata['npm'])) {
 			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai mahasiswa !');
 			$this->session->set_flashdata('tipe', 'error');
 			redirect(base_url('home'));
 		}
-		// Jika ada session user admin maka diblok
-		if (isset($this->session->userdata['username'])) {
-			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai admin !');
-			$this->session->set_flashdata('tipe', 'error');
-			redirect(base_url('dashboard'));
-		}
+		
 	}
 
 	public function index()
@@ -47,6 +45,8 @@ class Akun_umum extends CI_Controller {
 			'ktp'           => $this->session->userdata['ktp'],
 			'wa'            => $this->session->userdata['wa'],
 			'asal'          => $this->session->userdata['asal'],
+			'seminar'       => $this->seminar_model->listseminarbyuser($this->session->userdata['email']),
+			'cert'          => $this->sertifikasi_model->listsertifikasibyuser2($this->session->userdata['email']),
 			'view'			=> 'akun/umum/profile'
 		];
 

@@ -60,10 +60,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <a class="nav-link" href="<?php echo base_url('home') ?>">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#sertifikasi">Sertifikasi</a>
+                            <a class="nav-link" href="<?php echo base_url() ?>#sertifikasi">Sertifikasi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#seminar">Seminar</a>
+                            <a class="nav-link" href="<?php echo base_url() ?>#seminar">Seminar</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://sertifikasi.uib.ac.id/">Berita</a>
@@ -81,6 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="<?php echo base_url() ?>akun_mahasiswa/akun"><?php echo $this->session->userdata('nama') ?></a>
+                                    <a class="dropdown-item" href="<?php echo base_url() ?>logout">Logout</a>
                                 </div>
                             </li>
 
@@ -96,6 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="<?php echo base_url() ?>akun_umum/akun"><?php echo $this->session->userdata('nama') ?></a>
+                                    <a class="dropdown-item" href="<?php echo base_url() ?>logout">Logout</a>
                                 </div>
                             </li>
 

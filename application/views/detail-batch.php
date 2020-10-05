@@ -58,8 +58,9 @@
                         { 
                     ?>
 
-                        <a href="#" class="btn_1 d-block">Daftar Mahasiswa</a>
-                        <a href="#" class="btn_1 d-block">Daftar Umum</a>
+                        <a href="<?php echo base_url('batch_sertifikasi/daftar_mahasiswa/' . $batch->bs_id . '/' . $batch->bs_subsertifikasi . '/' .$batch->scert_sertifikasi) ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Mahasiswa ?')">Daftar Mahasiswa</a>
+
+                        <a href="<?php echo base_url('batch_sertifikasi/daftar_umum/' . $batch->bs_id . '/' . $batch->bs_subsertifikasi . '/' .$batch->scert_sertifikasi); ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Umum ?')">Daftar Umum</a>
 
                     <?php 
                         }
@@ -70,7 +71,7 @@
                         { 
                     ?>
 
-                        <a href="#" class="btn_1 d-block">Daftar Mahasiswa</a>
+                       <a href="<?php echo base_url('batch_sertifikasi/daftar_mahasiswa/' . $batch->bs_id . '/' . $batch->bs_subsertifikasi . '/' .$batch->scert_sertifikasi) ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Mahasiswa ?')">Daftar Mahasiswa</a>
 
                     <?php 
                         }
@@ -82,7 +83,7 @@
                         { 
                     ?>
 
-                        <a href="#" class="btn_1 d-block">Daftar Umum</a>
+                         <a href="<?php echo base_url('batch_sertifikasi/daftar_umum/' . $batch->bs_id . '/' . $batch->bs_subsertifikasi . '/' .$batch->scert_sertifikasi); ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Umum ?')">Daftar Umum</a>
 
                     <?php 
                         }

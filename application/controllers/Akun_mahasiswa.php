@@ -7,6 +7,8 @@ class Akun_mahasiswa extends CI_Controller {
 	{
 		parent::__construct();
 		// Jika ada session user umum maka diblok
+		$this->load->model('seminar_model');
+		$this->load->model('sertifikasi_model');
 		if (isset($this->session->userdata['email'])) {
 			$this->session->set_flashdata('message', 'Maaf anda sedang login sebagai umum !');
 			$this->session->set_flashdata('tipe', 'error');
@@ -19,8 +21,8 @@ class Akun_mahasiswa extends CI_Controller {
 	{
 		if (isset($this->session->userdata['npm'])) 
 		{
-            redirect(base_url('home'));
-        }
+			redirect(base_url('home'));
+		}
 
 		$data = [
 			'view'	=> 'akun/mahasiswa/login'
@@ -33,11 +35,16 @@ class Akun_mahasiswa extends CI_Controller {
 	{
 		if (!isset($this->session->userdata['npm'])) 
 		{
-            redirect(base_url('akun_mahasiswa'));
-        }
+			redirect(base_url('akun_mahasiswa'));
+		}
 
 		$data = [
-			'view'	=> 'akun/mahasiswa/profile'
+			'nama'          => $this->session->userdata['nama'],
+			'jurusan'       => $this->session->userdata['jurusan'],
+			'npm'           => $this->session->userdata['npm'],
+			'seminar'       => $this->seminar_model->listseminarbymahasiswa($this->session->userdata['npm']),
+			'cert'          => $this->sertifikasi_model->listsertifikasibymhs2($this->session->userdata['npm']),
+			'view'			=> 'akun/mahasiswa/profile'
 		];
 
 		$this->load->view('template/wrapper', $data);

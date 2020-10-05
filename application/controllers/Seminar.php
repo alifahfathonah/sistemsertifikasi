@@ -288,6 +288,129 @@ class Seminar extends CI_Controller {
 		}
 	}
 
+	public function daftar_umum($id)
+	{
+		if (!isset($this->session->userdata['email'])) 
+		{
+			$this->session->set_flashdata('message', 'Anda belum login! Silahkan login terlebih dahulu');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('home/detail_seminar/' . $id));
+		} 
+		else 
+		{
+			$cek = $this->seminar_model->cek($this->session->userdata['email']);
+			if ($cek->num_rows() > 0) 
+			{
+				$this->session->set_flashdata('message', 'Anda sudah mendaftar');
+				$this->session->set_flashdata('tipe', 'error');
+				redirect(base_url('home/detail_seminar/' . $id));
+			} 
+			else 
+			{
+
+                //Total Jumlah Peserta
+				$umum           = $this->seminar_model->listseminarumum()->row(); 
+				$jumlah_mhs     = $this->seminar_model->jumlahpesertamhs($id);
+				$jumlah_umum    = $this->seminar_model->jumlahpesertaumum($umum->su_seminar);
+				$total          = $jumlah_mhs->jumlah_mahasiswa + $jumlah_umum->jumlah;
+				$seminar        = $this->seminar_model->getjumlahmaxseminar($id)->row();
+				$jumlahmax      = $seminar->smr_jumlahmax;
+
+				if($total >= $seminar->smr_jumlahmax )
+				{
+					$this->session->set_flashdata('message', 'Maaf Pendaftaran sudah penuh!');
+					$this->session->set_flashdata('tipe', 'error');
+					redirect(base_url('home/detail_seminar/' . $id));
+				}
+				else
+				{
+					$data = [
+						'su_seminar'        => $id,
+						'su_peserta'        => $this->session->userdata['email'],
+						'su_tanggaldaftar'  => date('Y-m-d H:i:s'),
+						'su_status'         => "Menunggu Pembayaran",
+						'su_userupdate'     => $this->session->userdata('email'),
+						'su_lastupdate'     => date('Y-m-d H:i:s')
+					];
+
+					if ($this->seminar_model->daftar_seminar_umum($data)) 
+					{
+						$this->session->set_flashdata('message', 'Anda Berhasil mendaftar');
+						$this->session->set_flashdata('tipe', 'success');
+						redirect(base_url('akun_umum/akun'));
+					} 
+					else 
+					{
+						$this->session->set_flashdata('message', 'Anda gagal mendaftar');
+						$this->session->set_flashdata('tipe', 'error');
+						redirect(base_url('seminar'));
+					}
+				}
+			}
+		}
+	}
+
+	public function daftar_mahasiswa($id)
+	{
+		if (!isset($this->session->userdata['npm'])) 
+		{
+			$this->session->set_flashdata('message', 'Anda belum login! Silahkan login terlebih dahulu');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('home/detail_seminar/' . $id));
+		} 
+		else 
+		{
+			$cek = $this->seminar_model->cekmahasiswa($id, $this->session->userdata['npm']);
+			if ($cek->num_rows() > 0) 
+			{
+				$this->session->set_flashdata('message', 'Anda sudah mendaftar');
+				$this->session->set_flashdata('tipe', 'error');
+				redirect(base_url('home/detail_seminar/' . $id));
+			} 
+			else 
+			{
+                //Total Jumlah Peserta
+				$umum           = $this->seminar_model->listseminarumum()->row(); 
+				$jumlah_mhs     = $this->seminar_model->jumlahpesertamhs($id);
+				$jumlah_umum    = $this->seminar_model->jumlahpesertaumum($umum->su_seminar);
+				$total          = $jumlah_mhs->jumlah_mahasiswa + $jumlah_umum->jumlah;
+				$seminar        = $this->seminar_model->getjumlahmaxseminar($id)->row();
+				$jumlahmax      = $seminar->smr_jumlahmax;
+
+				if($total >= $seminar->smr_jumlahmax )
+				{
+					$this->session->set_flashdata('message', 'Maaf Pendaftaran sudah penuh!');
+					$this->session->set_flashdata('tipe', 'error');
+					redirect(base_url('home/detail_seminar/' . $id));
+				}
+				else
+				{
+					$data = [
+						'smhs_seminar'        => $id,
+						'smhs_mahasiswa'      => $this->session->userdata['npm'],
+						'smhs_tanggaldaftar'  => date('Y-m-d H:i:s'),
+						'smhs_status'         => "Menunggu Pembayaran",
+						'smhs_userupdate'     => $this->session->userdata('npm'),
+						'smhs_lastupdate'     => date('Y-m-d H:i:s')
+					];
+
+					if ($this->seminar_model->daftar_seminar_mahasiswa($data)) 
+					{
+						$this->session->set_flashdata('message', 'Anda Berhasil mendaftar');
+						$this->session->set_flashdata('tipe', 'success');
+						redirect(base_url('akun_mahasiswa/akun'));
+					} 
+					else 
+					{
+						$this->session->set_flashdata('message', 'Anda gagal mendaftar');
+						$this->session->set_flashdata('tipe', 'error');
+						redirect(base_url('seminar'));
+					}
+				}
+			}
+		}
+	}
+
 }
 
 /* End of file Seminar.php */

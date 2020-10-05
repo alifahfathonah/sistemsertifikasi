@@ -67,8 +67,9 @@
                         { 
                     ?>
 
-                        <a href="#" class="btn_1 d-block">Daftar Mahasiswa</a>
-                        <a href="#" class="btn_1 d-block">Daftar Umum</a>
+                        <a href="<?php echo base_url('seminar/daftar_mahasiswa/' . $seminar->smr_id) ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Mahasiswa ?')">Daftar Mahasiswa</a>
+
+                        <a href="<?php echo base_url('seminar/daftar_umum/' . $seminar->smr_id) ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Umum ?')">Daftar Umum</a>
 
                     <?php 
                         }
@@ -79,7 +80,7 @@
                         { 
                     ?>
 
-                        <a href="#" class="btn_1 d-block">Daftar Mahasiswa</a>
+                        <a href="<?php echo base_url('seminar/daftar_mahasiswa/' . $seminar->smr_id) ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Mahasiswa ?')">Daftar Mahasiswa</a>
 
                     <?php 
                         }
@@ -91,7 +92,7 @@
                         { 
                     ?>
 
-                        <a href="#" class="btn_1 d-block">Daftar Umum</a>
+                        <a href="<?php echo base_url('seminar/daftar_umum/' . $seminar->smr_id) ?>" class="btn_1 d-block" onclick="return confirm('Apakah anda yakin ingin mendaftar sebagai Peserta Umum ?')">Daftar Umum</a>
 
                     <?php 
                         }
