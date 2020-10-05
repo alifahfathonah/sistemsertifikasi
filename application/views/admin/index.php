@@ -24,8 +24,7 @@
               <div class="info-box-content">
                 <span class="info-box-text">Jumlah Pendaftar</span>
                 <span class="info-box-number">
-                  10
-                  <small>%</small>
+                  <?php echo $totaldaftar ?>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -39,7 +38,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Jumlah Seminar</span>
-                <span class="info-box-number">41,410</span>
+                <span class="info-box-number"><?php echo $totalseminar ?></span>
               </div>
               <!-- /.info-box-content -->
             </div>

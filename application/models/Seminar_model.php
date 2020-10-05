@@ -25,6 +25,14 @@ class Seminar_model extends CI_Model {
 		return $this->db->get($this->table)->row();
 	}
 
+	function jadwal_seminar()
+	{
+		$tgl = date("Y/m/d",now('Asia/Jakarta'));
+		$this->db->join('ssc_model_sertifikat', 'ssc_model_sertifikat.ms_id = ssc_seminar.smr_model_sertifikat');
+		$this->db->where('smr_tanggal >= ', $tgl);
+		return $this->db->get($this->table)->result();
+	}
+
 	function insert($data)
 	{
 		return $this->db->insert($this->table, $data);
