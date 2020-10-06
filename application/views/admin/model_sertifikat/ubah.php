@@ -29,29 +29,28 @@
 
                   <div class="form-group">
                    <label>Gambar <br><p class="text-danger">(Mohon Upload Gambar dengan tipe file .jpg, .jpeg, atau .png Ukuran 84 x 60 cm. Bila gambar melebihi ukuran tersebut mohon diedit agar tidak terjadi kesalahan saat mencetak sertifikat)</p></label>
-                    <br>
-                    <img width="30%" src="<?php echo base_url('assets/template_sertifikat/' . $list->ms_sertifikat);?>" alt="">
-                    <br>
-                    <br>
-                    <small class="text-danger">Gambar Sebelumnya</small>
-                    <br>
-                    <br>
-                    <input type="file" class="form-control" name="gambar" value="<?php echo set_value('gambar') ?>">
-                    <input type="hidden" name="gambar_old" value="<?php echo $list->ms_sertifikat ?>">
-                    <?php echo form_error('gambar') ?>
-                  </div>
+                   <br>
+                   <img width="30%" src="<?php echo base_url('assets/template_sertifikat/' . $list->ms_sertifikat);?>" alt="">
+                   <br>
+                   <br>
+                   <small class="text-danger">Gambar Sebelumnya</small>
+                   <br>
+                   <br>
+                   <input type="file" class="form-control" name="gambar" value="<?php echo set_value('gambar') ?>">
+                   <input type="hidden" name="gambar_old" value="<?php echo $list->ms_sertifikat ?>">
+                   <?php echo form_error('gambar') ?>
+                 </div>
 
-                  <button class="btn btn-success" type="submit">Ubah</button>
-                  <a href="<?php echo base_url('model_sertifikat') ?>" class="btn btn-secondary">Kembali</a>
-                </form>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
+                 <button class="btn btn-success" type="submit">Ubah</button>
+                 <a href="<?php echo base_url('model_sertifikat') ?>" class="btn btn-secondary">Kembali</a>
+               </form>
+             </div>
+             <!-- /.card-body -->
+           </div>
+           <!-- /.card -->
+         </div>
+         <!-- /.col -->
+       </div>
+       <!-- /.row -->
+     </section>
   <!-- /.content -->

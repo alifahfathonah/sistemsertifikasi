@@ -51,14 +51,13 @@
                   <button class="btn btn-success" type="submit">Tambah</button>
                   <a href="<?php echo base_url() ?>modul" class="btn btn-danger">Kembali</a>
                 </form>
-              </table>
+              </div>
+              <!-- /.card-body -->
             </div>
-            <!-- /.card-body -->
+            <!-- /.card -->
           </div>
-          <!-- /.card -->
+          <!-- /.col -->
         </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
+        <!-- /.row -->
+      </section>
   <!-- /.content -->
