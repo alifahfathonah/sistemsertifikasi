@@ -16,6 +16,7 @@
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
+                
                <div class="form-group">
                 <label>Nama Sub Sertifikasi *</label>
                 <input type="text" class="form-control" value="<?php echo $batch->scert_subsertifikasi ?>" readonly>
