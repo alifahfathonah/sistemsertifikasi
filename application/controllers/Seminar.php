@@ -616,6 +616,104 @@ class Seminar extends CI_Controller {
 			}
 		}
 	}
+
+	public function listpesertaumum($id_seminar)
+	{
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('auth');
+		}
+
+		$data = [
+			'title'	=> 'List Sertifikat Peserta',
+			'list'         => $this->seminar_model->listpesertaseminarumum($id_seminar),
+			'view'	=> 'admin/seminar/sertifikat/umum/index'
+		];
+
+		$this->load->view('admin/template/wrapper', $data);
+	}
+
+	public function cetak_sertifikat_umum($id_seminar, $peserta)
+	{
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('auth');
+		}
+
+		$data = [
+			'list'         => $this->seminar_model->cetaksertifikatseminarumum($id_seminar, $peserta)
+		];
+		$this->load->view('admin/seminar/template_sertifikat/template_umum', $data);
+	}
+
+	public function listpesertamhs($id_seminar)
+	{
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('auth');
+		}
+
+		$data_mhs = array();
+
+		$query =  $this->seminar_model->listpesertaseminarmhs($id_seminar);
+
+		foreach($query as $q)
+		{
+			$mhs = $this->seminar_model->getnama($q->smhs_mahasiswa);
+			$data_mhs[$q->smhs_mahasiswa] = $mhs->name;
+		}
+
+		$data = [
+			'title'	=> 'List Sertifikat Peserta',
+			'list'         => $query,
+			'mhs'	=> $data_mhs,
+			'view'	=> 'admin/seminar/sertifikat/mahasiswa/index'
+		];
+
+		$this->load->view('admin/template/wrapper', $data);
+	}
+
+	public function cetak_sertifikat_mhs($id_seminar, $npm)
+	{
+		if(!isset($this->session->userdata['username']))
+		{
+			$this->session->set_flashdata('message', 'Anda Belum Login!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect('auth');
+		}
+
+		$data2 = ['npm'  => $npm];
+		$data_json = json_encode($data2);
+		$curl = curl_init('http://apps.uib.ac.id/portal/api/v2/myprofile');
+
+		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+			'content-type:application/json',
+			'Content-Length: '.strlen($data_json)
+		));
+
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data_json);
+
+		$result = curl_exec($curl);
+
+		curl_close($curl);
+		$mahasiswa = json_decode($result);
+
+		$data = [
+			'list'     => $this->seminar_model->cetaksertifikatseminarmhs($id_seminar, $npm),
+			'profil'   => $mahasiswa
+		];
+
+		$this->load->view('admin/seminar/template_sertifikat/template_mahasiswa', $data);
+	}
 }
 /* End of file Seminar.php */
 /* Location: ./application/controllers/Seminar.php */
