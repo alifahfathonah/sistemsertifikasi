@@ -15,7 +15,7 @@
           <div class="col-12">
             <div class="card">
               <!-- /.card-header -->
-              <form method="post" action="<?php echo base_url('Validasipembayaranseminarmahasiswa/submit_checkall_setuju') ?>">
+              <form method="post" action="<?php echo base_url('validasipembayaransertifikasimahasiswa/submit_checkall_setuju') ?>">
                 <div class="card-header">
                   <button type="submit" class="btn btn-success">Set Lunas </button>
                 </div>
@@ -26,7 +26,7 @@
                         <th><input type="checkbox" id="check_all" class="checked_all"></th>
                         <th>No</th>
                         <th>Nama Mahasiswa</th>
-                        <th>Nama Seminar</th>
+                        <th>Nama Subsertifikasi</th>
                         <th>Tanggal Daftar</th>
                         <th>Status Pembayaran</th>
                         <th width="30%">Aksi</th>
@@ -39,7 +39,7 @@
                        <tr>
                          <td>
                           <?php 
-                          if($l['smhs_status'] == 'Menunggu Pembayaran') 
+                          if($l['ssm_status'] == 'Menunggu Pembayaran') 
                           { 
 
                             ?>
@@ -48,7 +48,7 @@
 
                           } 
                           
-                          elseif($l['smhs_status'] == 'Lunas') 
+                          elseif($l['ssm_status'] == 'Lunas') 
                           { 
 
                             ?>
@@ -56,7 +56,7 @@
                             <?php 
                             
                           } 
-                          elseif($l['smhs_status'] == 'Tolak') 
+                          elseif($l['ssm_status'] == 'Tolak') 
                           { 
                             ?>
                             <?php 
@@ -65,21 +65,20 @@
                           { 
                            ?>
                            
-                           <input type="checkbox" name="mhs[]" id="c<?php echo $l['smhs_mahasiswa'];?>" class="checkbox" value="<?php echo $l['smhs_mahasiswa'];?>">
+                           <input type="checkbox" name="mhs[]" id="c<?php echo $l['ssm_id'];?>" class="checkbox" value="<?php echo $l['ssm_id'];?>">
 
-                           <input type="hidden" name="seminar" id="c<?php echo $l['smhs_seminar'];?>" value="<?php echo $l['smhs_seminar'];?>">
                            <?php 
                          } 
                          ?>
                        </td>
                        <td><?php echo $no++ ?></td>
-                       <td><?php echo $nama_mhs[$l['smhs_mahasiswa']] ?></td>
-                       <td><?php echo $l['smr_acara'] ?></td>
-                       <td><?php echo date('d M Y',strtotime($l['smhs_tanggaldaftar'])) ?></td>
+                       <td><?php echo $nama_mhs[$l['sm_mahasiswa']] ?></td>
+                       <td><?php echo $l['scert_subsertifikasi'] ?></td>
+                       <td><?php echo date('d M Y',strtotime($l['ssm_tanggaldaftar'])) ?></td>
                        
                        <td>
                         <?php 
-                        if($l['smhs_status'] == 'Menunggu Pembayaran') 
+                        if($l['ssm_status'] == 'Menunggu Pembayaran') 
                         { 
                           ?>
                           <div class="badge badge-warning">Menunggu Pembayaran</div>
@@ -87,7 +86,7 @@
                           <?php 
                         } 
                         
-                        elseif($l['smhs_status'] == 'Validasi Pembayaran') 
+                        elseif($l['ssm_status'] == 'Validasi Pembayaran') 
                         { 
                           ?>
                           
@@ -96,7 +95,7 @@
                           <?php 
                         } 
                         
-                        elseif($l['smhs_status'] == 'Lunas') 
+                        elseif($l['ssm_status'] == 'Lunas') 
                         {
 
                           ?>
@@ -120,46 +119,46 @@
                       <td>
 
                         <?php 
-                        if($l['smhs_status'] == 'Menunggu Pembayaran' || $l['smhs_status'] == 'Validasi Pembayaran') 
+                        if($l['ssm_status'] == 'Menunggu Pembayaran' || $l['ssm_status'] == 'Validasi Pembayaran') 
                         { 
                           ?>
                           
-                          <a href="<?php echo base_url('validasipembayaranseminarmahasiswa/detail/' . $l['smhs_mahasiswa'] . '/' . $l['smhs_seminar']) ?>" class="btn btn-info">Detail</a>
+                          <a href="<?php echo base_url('validasipembayaransertifikasimahasiswa/detail/' . $l['ssm_id'] . '/' .$l['ssm_subsertifikasi'] . '/' . $l['ssm_sertifikasi_mahasiswa']) ?>" class="btn btn-info">Detail</a>
 
-                          <a href="<?php echo base_url('validasipembayaranseminarmahasiswa/setLunas/' . $l['smhs_mahasiswa'] . '/' . $l['smhs_seminar']) ?>" onclick="return confirm('Apakah anda yakin ingin set Status Lunas?')" class="btn btn-success">Set Lunas</a>
+                          <a href="<?php echo base_url('validasipembayaransertifikasimahasiswa/setLunas/' . $l['ssm_id'] . '/' .$l['ssm_subsertifikasi'] . '/' . $l['ssm_sertifikasi_mahasiswa']) ?>" onclick="return confirm('Apakah anda yakin ingin set Status Lunas?')" class="btn btn-success">Set Lunas</a>
                           
-                          <a href="javascript:;" data-id="<?php echo $l['smhs_mahasiswa'] ?>" data-seminar="<?php echo $l['smhs_seminar'] ?>" data-toggle="modal" data-target="#exampleModal"><button type="button" class="btn btn-danger">
+                          <a href="javascript:;" data-id="<?php echo $l['ssm_id'] ?>" data-subsertifikasi="<?php echo $l['ssm_subsertifikasi'] ?>" data-mahasiswa="<?php echo $l['ssm_sertifikasi_mahasiswa'] ?>" data-toggle="modal" data-target="#exampleModal"><button type="button" class="btn btn-danger">
                             Set Tolak
                           </button>
-                          
-                          <?php 
-                        } 
-                        else 
-                        { 
-                          ?>
-                          <a href="<?php echo base_url('Validasipembayaranseminarmahasiswa/detail/' . $l['smhs_mahasiswa'] . '/' . $l['smhs_seminar']) ?>" class="btn btn-info">Detail</a>
-                          
-                          <?php 
-                        } 
-                        ?>
-                      </td>
-                    </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </form>
-        </div>
-        <!-- /.card -->
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
-  </section>
-  <!-- /.content -->
+                        </a>
 
- <!-- Modal -->
+                        <?php 
+                      } 
+                      else 
+                      { 
+                        ?>
+                        <a href="<?php echo base_url('validasipembayaransertifikasimahasiswa/detail/' . $l['ssm_id'] . '/' .$l['ssm_subsertifikasi'] . '/' . $l['ssm_sertifikasi_mahasiswa']) ?>" class="btn btn-info">Detail</a>
+
+                        <?php 
+                      } 
+                      ?>
+                    </td>
+                  </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- /.card-body -->
+        </form>
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.col -->
+  </div>
+  <!-- /.row -->
+</section>
+<!-- /.content -->
+
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

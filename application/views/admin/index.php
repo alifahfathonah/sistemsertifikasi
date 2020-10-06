@@ -54,7 +54,7 @@
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-check"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Jumlah Lulus</span>
+                <span class="info-box-text">Jumlah Mahasiswa Lulus</span>
                 <span class="info-box-number">760</span>
               </div>
               <!-- /.info-box-content -->
@@ -67,7 +67,7 @@
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-times"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Jumlah Belum Lulus</span>
+                <span class="info-box-text">Jumlah Mahasiswa<br> Belum Lulus</span>
                 <span class="info-box-number">2,000</span>
               </div>
               <!-- /.info-box-content -->
