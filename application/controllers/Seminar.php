@@ -421,7 +421,7 @@ class Seminar extends CI_Controller {
 		}
 		$data = [
 			'bukti'         => $this->seminar_model->getdatasebelumbayar($id, $this->session->userdata('email')),
-			'view'	=> 'akun/umum/buktibayar'
+			'view'	=> 'akun/umum/buktibayarseminar'
 		];
 		$this->load->view('template/wrapper', $data);
 	}
@@ -433,6 +433,7 @@ class Seminar extends CI_Controller {
 		$this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'required|trim');
 
 		$this->form_validation->set_message('required', '{field} harus diisi');
+		$this->form_validation->set_message('numeric', '{field} harus diisi dengan angka');
 
 		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
 
@@ -523,7 +524,7 @@ class Seminar extends CI_Controller {
 		}
 		$data = [
 			'bukti'         => $this->seminar_model->getdatasebelumbayarmahasiswa($id, $this->session->userdata('npm')),
-			'view'	=> 'akun/mahasiswa/buktibayar'
+			'view'	=> 'akun/mahasiswa/buktibayarseminar'
 		];
 		$this->load->view('template/wrapper', $data);
 	}
@@ -535,6 +536,7 @@ class Seminar extends CI_Controller {
 		$this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'required|trim');
 
 		$this->form_validation->set_message('required', '{field} harus diisi');
+		$this->form_validation->set_message('numeric', '{field} harus diisi dengan angka');
 
 		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
 

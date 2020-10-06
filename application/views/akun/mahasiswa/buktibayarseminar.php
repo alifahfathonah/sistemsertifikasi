@@ -5,7 +5,7 @@
 		<div class="row justify-content-center">
 			
 			<div class="col-6 align-center">
-				<h2 class="text-center mb-5">Register</h2>
+				<h2 class="text-center mb-5">Upload Bukti Transfer</h2>
 
 				<form action="<?php echo base_url('seminar/upload_mahasiswa') ?>" method="post" enctype="multipart/form-data">
 
