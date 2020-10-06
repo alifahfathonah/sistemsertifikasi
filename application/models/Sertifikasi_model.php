@@ -86,14 +86,14 @@ class Sertifikasi_model extends CI_Model {
 		return $this->db->get('ssc_sertifikasi_umum')->result();
 	}
 
-	function getdatasebelumbayar($id_subsertifikasi, $id_sertifikasi)
+	function getdatasebelumbayar($id_subsertifikasi, $id_sertifikasi, $email)
 	{
 		$this->db->join('ssc_sertifikasi_umum', 'ssc_sertifikasi_umum.srtu_id = ssc_subsertifikasi_umum.ssu_sertifikasi_umum');
 		$this->db->join('ssc_subsertifikasi', 'ssc_subsertifikasi.scert_id = ssc_subsertifikasi_umum.ssu_subsertifikasi');
 		$this->db->join('ssc_batch_sertifikasi', 'ssc_batch_sertifikasi.bs_id = ssc_subsertifikasi_umum.ssu_batch');
 		$this->db->where('ssc_subsertifikasi_umum.ssu_id', $id_subsertifikasi);
 		$this->db->where('ssc_sertifikasi_umum.srtu_sertifikasi', $id_sertifikasi);
-		$this->db->where('ssc_sertifikasi_umum.srtu_peserta', $this->session->userdata('email'));
+		$this->db->where('ssc_sertifikasi_umum.srtu_peserta', $email);
 		return $this->db->get('ssc_subsertifikasi_umum')->row();
 	}
 
@@ -126,14 +126,14 @@ class Sertifikasi_model extends CI_Model {
 		return $this->db->get('ssc_sertifikasi_mahasiswa')->result();
 	}
 	
-	function getdatasebelumbayarmhs($id_subsertifikasi, $id_sertifikasi)
+	function getdatasebelumbayarmhs($id_subsertifikasi, $id_sertifikasi, $npm)
 	{
 		$this->db->join('ssc_sertifikasi_mahasiswa', 'ssc_sertifikasi_mahasiswa.sm_id = ssc_subsertifikasi_mahasiswa.ssm_sertifikasi_mahasiswa');
 		$this->db->join('ssc_subsertifikasi', 'ssc_subsertifikasi.scert_id = ssc_subsertifikasi_mahasiswa.ssm_subsertifikasi');
 		$this->db->join('ssc_batch_sertifikasi', 'ssc_batch_sertifikasi.bs_id = ssc_subsertifikasi_mahasiswa.ssm_batch');
 		$this->db->where('ssc_subsertifikasi_mahasiswa.ssm_id', $id_subsertifikasi);
 		$this->db->where('ssc_sertifikasi_mahasiswa.sm_sertifikasi', $id_sertifikasi);
-		$this->db->where('ssc_sertifikasi_mahasiswa.sm_mahasiswa', $this->session->userdata('npm'));
+		$this->db->where('ssc_sertifikasi_mahasiswa.sm_mahasiswa', $npm);
 		return $this->db->get('ssc_subsertifikasi_mahasiswa')->row();
 	}
 

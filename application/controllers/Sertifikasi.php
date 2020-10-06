@@ -179,7 +179,7 @@ class Sertifikasi extends CI_Controller {
 			redirect('akun_umum');
 		}
 		$data = [
-			'bukti'         =>  $this->sertifikasi_model->getdatasebelumbayar($id_subsertifikasi, $id_sertifikasi),
+			'bukti'         =>  $this->sertifikasi_model->getdatasebelumbayar($id_subsertifikasi, $id_sertifikasi, $this->session->userdata('email')),
 			'view'	=> 'akun/umum/buktibayarsertifikasi'
 		];
 
@@ -283,13 +283,9 @@ class Sertifikasi extends CI_Controller {
 			redirect('akun_mahasiswa');
 		}
 		$data = [
-			'bukti'         => $this->sertifikasi_model->getdatasebelumbayarmhs($id_subsertifikasi, $id_sertifikasi),
+			'bukti'         => $this->sertifikasi_model->getdatasebelumbayarmhs($id_subsertifikasi, $id_sertifikasi, $this->session->userdata('npm')),
 			'view'	=> 'akun/mahasiswa/buktibayarsertifikasi'
 		];
-
-		// header('content-type: application/json');
-		// echo json_encode($data);
-		// die;
 
 		$this->load->view('template/wrapper', $data);
 	}
