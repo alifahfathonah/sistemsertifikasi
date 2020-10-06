@@ -26,7 +26,7 @@
                      <th>Nama Sertifikasi</th>
                      <th>Program Studi</th>
                      <th>Status</th>
-                     <th width="40%">Aksi</th>
+                     <th>Aksi</th>
                    </tr>
                  </thead>
                  <tbody>
@@ -70,7 +70,7 @@
                           <div class="badge badge-danger">Tidak Aktif</div>
                         <?php } ?>
                       </td>
-                      <td>
+                      <td class="text-center">
 
                         <a href="<?php echo base_url('sertifikasi/ubah/'.$s->cert_id) ?>" class="btn btn-warning btn-sm">Edit</a>
                         
@@ -78,9 +78,9 @@
                         
                         <a href="<?php echo base_url('subsertifikasi/index/'.$s->cert_id) ?>" class="btn btn-info btn-sm">Sub-Sertifikasi</a>
                         
-                        <a href="<?php echo base_url('input_nilai_sertifikasi_final/nilai_umum_final/' . $s->cert_id) ?>" class="btn btn-primary btn-sm mt-2">Input Nilai Final dan Sertifikat Peserta Umum</a>
+                        <a href="<?php echo base_url('input_nilai_sertifikasi_final/nilai_umum_final/' . $s->cert_id) ?>" class="btn btn-primary btn-sm mt-2 btn-block">Input Nilai Final dan Sertifikat Peserta Umum</a>
                         
-                        <a href="<?php echo base_url('input_nilai_sertifikasi_final/nilai_mahasiswa_final/' . $s->cert_id) ?>" class="btn btn-primary btn-sm mt-2">Input Nilai Final dan Sertifikat Peserta Mahasiswa</a>
+                        <a href="<?php echo base_url('input_nilai_sertifikasi_final/nilai_mahasiswa_final/' . $s->cert_id) ?>" class="btn btn-primary btn-sm mt-2 btn-block">Input Nilai Final dan Sertifikat Peserta Mahasiswa</a>
                       </td>
                     </tr>
                   <?php } ?>

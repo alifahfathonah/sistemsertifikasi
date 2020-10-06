@@ -42,18 +42,18 @@
                        <td><?php echo $s->smr_tanggal ?></td>
                        <td><?php echo $s->smr_moderator ?></td>
                        <td><?php echo $s->smr_jam_mulai ?></td>
-                       <td>
+                       <td class="text-center">
                          <a href="<?php echo base_url('seminar/ubah/' . $s->smr_id) ?>" class="btn btn-warning btn-sm">Ubah</a>
 
                          <a href="<?php echo base_url('seminar/delete/' . $s->smr_id) ?>" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')" class="btn btn-danger btn-sm">Hapus</a>
                          
-                         <a href="<?php echo base_url('absen_seminar/absen_mahasiswa/' . $s->smr_id); ?>" class="btn btn-primary btn-sm">Absen Mahasiswa</a>
+                         <a href="<?php echo base_url('absen_seminar/absen_mahasiswa/' . $s->smr_id); ?>" class="btn btn-primary btn-sm btn-block mt-2">Absen Mahasiswa</a>
                          
-                         <a href="<?php echo base_url('absen_seminar/absen_umum/' . $s->smr_id); ?>" class="btn btn-primary btn-sm">Absen Umum</a>
+                         <a href="<?php echo base_url('absen_seminar/absen_umum/' . $s->smr_id); ?>" class="btn btn-primary btn-sm btn-block mt-2">Absen Umum</a>
                          
-                         <a href="<?php echo base_url('seminar/listpesertamhs/' . $s->smr_id); ?>" class="btn btn-info mt-2"><i class="fa fa-print"></i>&nbsp;&nbsp; Cetak Sertifikat Seminar Mahasiswa</a>
+                         <a href="<?php echo base_url('seminar/listpesertamhs/' . $s->smr_id); ?>" class="btn btn-info mt-2 btn-block btn-sm"><i class="fa fa-print"></i>&nbsp;&nbsp; Cetak Sertifikat Seminar Mahasiswa</a>
                          
-                         <a href="<?php echo base_url('seminar/listpesertaumum/' . $s->smr_id ); ?>" class="btn btn-info mt-2"><i class="fa fa-print"></i>&nbsp;&nbsp; Cetak Sertifikat Seminar Umum</a>
+                         <a href="<?php echo base_url('seminar/listpesertaumum/' . $s->smr_id ); ?>" class="btn btn-info mt-2 btn-block btn-sm"><i class="fa fa-print"></i>&nbsp;&nbsp; Cetak Sertifikat Seminar Umum</a>
                        </td>
                      </tr>
                    <?php } ?>
