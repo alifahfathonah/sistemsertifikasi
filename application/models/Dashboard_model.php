@@ -17,6 +17,24 @@ class Dashboard_model extends CI_Model {
 		return $query->num_rows();
 	}
 
+	function gettotalmhslulus()
+	{
+		$this->db->where('sm_status', 'Lulus');
+
+		$query = $this->db->get('ssc_sertifikasi_mahasiswa');
+
+		return $query->num_rows();
+	}
+
+	function gettotalmhstidaklulus()
+	{
+		$this->db->where('sm_status', 'Tidak Lulus');
+
+		$query = $this->db->get('ssc_sertifikasi_mahasiswa');
+
+		return $query->num_rows();
+	}
+
 }
 
 /* End of file Dashboard_model.php */

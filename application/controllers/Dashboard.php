@@ -22,6 +22,8 @@ class Dashboard extends CI_Controller {
 			'title'	=> 'Dashboard',
 			'totaldaftar' => $this->dashboard_model->gettotalpendaftar(),
 			'totalseminar' => $this->dashboard_model->gettotalseminar(),
+			'totallulus' => $this->dashboard_model->gettotalmhslulus(),
+			'totaltidaklulus' => $this->dashboard_model->gettotalmhstidaklulus(),
 			'view'	=> 'admin/index'
 		];
 

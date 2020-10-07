@@ -55,7 +55,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Jumlah Mahasiswa Lulus</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-number"><?php echo $totallulus ?></span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -68,7 +68,7 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">Jumlah Mahasiswa<br> Belum Lulus</span>
-                <span class="info-box-number">2,000</span>
+                <span class="info-box-number"><?php echo $totaltidaklulus ?></span>
               </div>
               <!-- /.info-box-content -->
             </div>

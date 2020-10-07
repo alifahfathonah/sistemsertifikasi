@@ -35,6 +35,11 @@
     h4 + ul { margin: 5mm 0 0 50mm }
     article { border: 4px double black; padding: 5mm 10mm; border-radius: 3mm }
     
+    #background {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-image: url(<?php echo base_url('assets/template_sertifikat/' . $list->ms_sertifikat); ?>);
+    }
   </style>
 </head>
 
@@ -44,7 +49,7 @@
 
   <!-- Each sheet element should have the class "sheet" -->
   <!-- "padding-**mm" is optional: you can set 10, 15, 20 or 25 -->
-  <section class="sheet padding-20mm" style="background-size: cover; background-repeat: no-repeat; background-image: url(<?php echo base_url('assets/template_sertifikat/' . $list->ms_sertifikat); ?>)">
+  <section id="background" class="sheet padding-20mm">
         
         <h1 style="font-size: 30px !important; text-align: center; margin-top: 45px; margin-left: 40px;">Sertifikat</h1>
         
