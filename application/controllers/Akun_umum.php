@@ -401,9 +401,35 @@ class Akun_umum extends CI_Controller {
 		}
 	}
 
+	public function modelsertifikat()
+    {
+        if(!isset($this->session->userdata['email']))
+        {
+            $this->session->set_flashdata('message', 'Anda Belum Login!');
+            $this->session->set_flashdata('tipe', 'error');
+            redirect('auth');
+        }
 
+        $seminar = $this->input->post('id_seminar');
+        $peserta = $this->input->post('id_peserta');
 
-
+        
+        $row = $this->seminar_model->cetaksertifikatseminarumum($seminar, $peserta);
+        
+        if($row)
+        {
+            $data = [
+                'list'         => $row
+            ];
+            $this->load->view('admin/seminar/template_sertifikat/template_umum', $data);
+        }
+        else
+        {
+            $this->session->set_flashdata('message', 'User ini tidak ada atau belum pernah mendaftar!');
+            $this->session->set_flashdata('tipe', 'error');
+            redirect(base_url('akun'));
+        }
+    }
 
 }
 
