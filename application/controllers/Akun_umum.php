@@ -421,8 +421,8 @@ class Akun_umum extends CI_Controller {
 			$data = [
 				'list'         => $row
 			];
-
-			$html = $this->load->view('admin/seminar/template_sertifikat/template_umum', $data);
+			
+			$this->load->view('admin/seminar/template_sertifikat/template_umum', $data);
 		}
 		else
 		{

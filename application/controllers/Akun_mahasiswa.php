@@ -128,6 +128,50 @@ class Akun_mahasiswa extends CI_Controller {
 		}
 	}
 
+	public function modelsertifikat()
+	{   
+		$seminar = $this->input->post('id_seminar');
+		$npm     = $this->input->post('npm');
+
+		$row = $this->seminar_model->cetaksertifikatseminarmhs($seminar, $npm);
+
+		if($row)
+		{
+
+			$data2 = ['npm'  => $npm];
+			$data_json = json_encode($data2);
+			$curl = curl_init('http://apps.uib.ac.id/portal/api/v2/myprofile');
+
+			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
+
+			curl_setopt($curl, CURLOPT_HTTPHEADER, array(
+				'content-type:application/json',
+				'Content-Length: '.strlen($data_json)
+			));
+
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl, CURLOPT_POSTFIELDS, $data_json);
+
+			$result = curl_exec($curl);
+
+			curl_close($curl);
+			$mahasiswa = json_decode($result);
+
+			$data = [
+				'list'     => $row,
+				'profil'   => $mahasiswa
+			];
+
+			$this->load->view('admin/seminar/template_sertifikat/template_mahasiswa', $data);
+		}
+		else
+		{
+			$this->session->set_flashdata('message', 'Mahasiswa ini belum Daftar!');
+			$this->session->set_flashdata('tipe', 'error');
+			redirect(base_url('akun_mahasiswa'));
+		}
+	}
+
 }
 
 /* End of file Akun_mahasiswa.php */
