@@ -164,7 +164,7 @@
 													<?php if($s->su_ishadir == NULL) { ?>
 														<p class="text-danger">Sertifikat Belum Ada</p>
 													<?php } else { ?>
-														<form action="<?php echo base_url('akun/modelsertifikat'); ?>" method="post">
+														<form action="<?php echo base_url('akun_umum/modelsertifikat'); ?>" method="post">
 															<input type="hidden" name="id_seminar" value="<?php echo $s->smr_id ?>">
 															<input type="hidden" name="id_peserta" value="<?php echo $this->session->userdata('email') ?>">
 															<button target="_blank" class="btn btn-warning btn-sm">Lihat Sertifikat</button>
