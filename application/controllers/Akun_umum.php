@@ -412,15 +412,18 @@ class Akun_umum extends CI_Controller {
 
         $seminar = $this->input->post('id_seminar');
         $peserta = $this->input->post('id_peserta');
-
         
         $row = $this->seminar_model->cetaksertifikatseminarumum($seminar, $peserta);
         
+        // header('content-type:application/json');
+        // echo json_encode($row);
+        // die;
         if($row)
         {
             $data = [
                 'list'         => $row
             ];
+           		
             $this->load->view('admin/seminar/template_sertifikat/template_umum', $data);
         }
         else
