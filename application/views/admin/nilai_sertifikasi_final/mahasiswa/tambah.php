@@ -49,6 +49,7 @@
                   <input type="text" class="form-control" name="status" value="<?php echo $status ?>" readonly>
                 </div>
 
+                <?php if($status == 'Lulus') { ?>
                 <div class="form-group">
                   <label>Upload Sertifikat <small class="text-danger"> Jika Belum lulus silahkan kosongkan !</small></label>
                   <br>
@@ -62,8 +63,7 @@
                   <input type="file" class="form-control" name="sertifikat">
                   <input type="hidden" name="sertifikat_old" value="<?php echo $list->sm_sertifikat ?>">
                 </div>
-
-                <?php if($status == 'Lulus') { ?>
+              
                   <div class="form-group">
                    <label>Tanggal Lulus *</label>
                    <input type="date" class="form-control" name="tanggal_lulus" value="<?php echo $this->input->post('tanggal_lulus') ?? $list->sm_tanggal_lulus  ?>">
