@@ -108,6 +108,45 @@ class Input_nilai_sertifikasi extends CI_Controller {
 		$this->load->view('admin/template/wrapper', $data);
 	}
 
+	public function simpan_mahasiswa()
+	{
+		$this->form_validation->set_rules('skor', 'Skor', 'required|trim|numeric');
+		$this->form_validation->set_rules('tanggal_sertifikasi', 'Tanggal Sertifikasi', 'required');
+
+		$this->form_validation->set_error_delimiters('<small class="text-danger">', '</small>');
+		$this->form_validation->set_message('required', '{field} harus diisi');
+		$this->form_validation->set_message('numeric', 'Mohon isi {field} dengan angka saja!');
+
+		if($this->form_validation->run() == FALSE)
+		{
+			$this->session->set_flashdata('message', 'Mohon Isi data sesuai dengan format!');
+			$this->session->set_flashdata('tipe', 'error');
+			$this->input_nilai_mahasiswa($this->input->post('id_subsertifikasimahasiswa'), $this->input->post('id_sertifikasimahasiswa'), $this->input->post('id_batch'));
+		}
+		else
+		{
+			$data = [
+				'ssm_skor'                    => $this->input->post('skor'),
+				'ssm_tanggal_sertifikasi'     => $this->input->post('tanggal_sertifikasi'),
+				'ssm_userupdate'              => $this->session->userdata('username'),
+				'ssm_lastupdate'              => date('Y-m-d H:i:s')
+			];
+
+			if($this->inputnilaisertifikasi_model->update_mahasiswa($this->input->post('id_subsertifikasimahasiswa'), $this->input->post('id_sertifikasimahasiswa'), $this->input->post('id_batch'), $data))
+			{
+				$this->session->set_flashdata('message', 'Data nilai berhasil disimpan');
+				$this->session->set_flashdata('tipe', 'success');
+				redirect('input_nilai_sertifikasi/nilai_mahasiswa/' . $this->input->post('id_batch'));
+			}
+			else
+			{
+				$this->session->set_flashdata('message', 'Data nilai gagal disimpan');
+				$this->session->set_flashdata('tipe', 'error');
+				redirect('input_nilai_sertifikasi/nilai_mahasiswa/' . $this->input->post('id_batch'));
+			}
+		}
+	}
+
 }
 
 /* End of file Input_nilai_sertifikasi.php */

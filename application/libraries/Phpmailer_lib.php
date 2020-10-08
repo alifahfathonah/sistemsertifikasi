@@ -22,7 +22,7 @@ class PHPMailer_Lib
     $mail->SMTPAuth = TRUE;
     $mail->SMTPSecure = 'tls';
     $mail->Username = 'noreply@uib.ac.id';
-	  $mail->Password = 'Qwerty12345';
+	  $mail->Password = 'Qwerty123$%^';
 	  $mail->Port = 587;
     return $mail;
   }
