@@ -80,17 +80,21 @@
                       </tr>
                     </thead>
                     <tbody>
+
                       <?php foreach($peserta as $p) : ?>
                         <tr>
+
                           <input type="hidden" name="id_absen" value="<?php echo $p->aps_absen ?>>">
                           <input type="hidden" name="id_batch" value="<?php echo $header->as_batch ?>>">
                           <input type="hidden" name="id_peserta[]" value="<?php echo $p->aps_peserta ?>">
-                          <td><?php echo $p->aps_peserta ?></td>
+                          <td><?php echo $nama[$p->aps_peserta] ?></td>
                           <td class="text-left"><input type="radio" name="name<?php echo str_replace('.','',$p->aps_peserta)  ?>" value="y" <?php if($pesertarow[$p->aps_peserta] == 'y') { echo 'checked'; } ?> required></td>
                           <td class="text-left"><input type="radio" name="name<?php echo str_replace('.','',$p->aps_peserta)  ?>" value="n" <?php if($pesertarow[$p->aps_peserta] == 'n') { echo 'checked'; } ?> required></td>
                           <td class="text-left"><input type="radio" name="name<?php echo str_replace('.','',$p->aps_peserta)  ?>" value="i" <?php if($pesertarow[$p->aps_peserta] == 'i') { echo 'checked'; } ?> required></td>
+
                         </tr>
                       <?php endforeach ?>
+
                     </tbody>
                   </table>
                   <button type="submit" class="btn btn-primary mt-3">Simpan</button>

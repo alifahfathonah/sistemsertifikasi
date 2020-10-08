@@ -66,6 +66,12 @@ class Users_model extends CI_Model {
 		return $this->db->delete($this->table);
 	}
 
+	function listusers($user)
+	{
+		$this->db->where('pu_email', $user);
+		return $this->db->get('ssc_peserta_umum')->row();
+	}
+
 }
 
 /* End of file Users_model.php */

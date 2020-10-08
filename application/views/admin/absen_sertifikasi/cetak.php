@@ -49,14 +49,8 @@
                     <?php foreach($listabsen as $l) : ?>
                     <tr>
                         <td><?php echo $no++ ?></td>
-                        <td>
-                         <?php if($l->aps_peserta != $l->pu_email) { ?>
-                         <?php echo $l->aps_peserta ?>
-                         <?php } else { ?>
-                         <?php echo $l->pu_nama ?>
-                         <?php } ?>
-                     </td>
-                     <td>
+                        <td><?php echo $nama[$l->aps_peserta] ?></td>
+                    <td>
                         <?php if($l->aps_ishadir == 'y') { ?>
                         <i class="fas fa-check"></i>
                         <?php } ?>

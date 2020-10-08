@@ -80,6 +80,7 @@
                       </tr>
                     </thead>
                     <tbody>
+
                       <?php foreach($peserta as $p) : ?>
                         <tr>
                           <input type="hidden" name="id_absensertifikasi" value="<?php echo $header->as_id ?>">
@@ -90,6 +91,7 @@
                           <td class="text-left"><input type="radio" name="name<?php echo str_replace('.','',$p->pu_email)  ?>" value="i" required></td>
                         </tr>
                       <?php endforeach ?>
+                      
                       <?php foreach($mahasiswa as $m) : ?>
                         <tr>
                           <input type="hidden" name="id_batch" value="<?php echo $m->ssm_batch ?>">
@@ -100,6 +102,7 @@
                           <td class="text-left"><input type="radio" name="name<?php echo $m->sm_mahasiswa  ?>" value="i" required></td>
                         </tr>
                       <?php endforeach ?>
+                      
                     </tbody>
                   </table>
                   <button type="submit" class="btn btn-primary mt-3">Simpan</button>

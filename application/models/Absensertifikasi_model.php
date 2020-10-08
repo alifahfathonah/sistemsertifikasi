@@ -153,7 +153,7 @@ class Absensertifikasi_model extends CI_Model {
 	public function cetakabsen($id_absen, $id_batch)
 	{
 		$this->db->join('ssc_absen_sertifikasi', 'ssc_absen_sertifikasi.as_id = ssc_absen_peserta_sertifikasi.aps_absen');
-		$this->db->join('ssc_peserta_umum', 'ssc_peserta_umum.pu_email = ssc_absen_peserta_sertifikasi.aps_peserta', 'left');
+		// $this->db->join('ssc_peserta_umum', 'ssc_peserta_umum.pu_email = ssc_absen_peserta_sertifikasi.aps_peserta', 'left');
 		$this->db->join('ssc_batch_sertifikasi', 'ssc_batch_sertifikasi.bs_id = ssc_absen_sertifikasi.as_batch');
 		$this->db->join('ssc_subsertifikasi', 'ssc_subsertifikasi.scert_id = ssc_batch_sertifikasi.bs_subsertifikasi');
 		$this->db->join('ssc_sertifikasi','ssc_sertifikasi.cert_id = ssc_subsertifikasi.scert_sertifikasi');

@@ -7,6 +7,7 @@ class Absen_sertifikasi extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('absensertifikasi_model');
+		$this->load->model('users_model');
 
 		if(!isset($this->session->userdata['username']))
 		{
@@ -206,9 +207,31 @@ class Absen_sertifikasi extends CI_Controller {
 		$ps_row = array();
 		$query = $this->absensertifikasi_model->listsertifikasiumumrow($id_absen);
 		
+		$mhs = $this->absensertifikasi_model->absen_sertifikasimahasiswa();
+		$peserta = $this->absensertifikasi_model->absen_sertifikasiumum();
+
+		$data_match = array();
+
+		$nama_user = "";
+
 		foreach($query as $q)
 		{
-			$ps_row[$q->aps_peserta]  = $q->aps_ishadir;
+			foreach($mhs as $m)
+			{
+				foreach($peserta as $p)
+				{
+					$data_peserta = $this->users_model->listusers($p->srtu_peserta);
+					$data_match[$p->srtu_peserta] = $data_peserta->pu_nama;
+
+					$data_mhs = $this->absensertifikasi_model->getnama($m->sm_mahasiswa);
+					$data_match[$m->sm_mahasiswa] = $data_mhs->name;
+					
+					// Kehadiran
+					$ps_row[$q->aps_peserta]  = $q->aps_ishadir;
+
+					$nama_user = $data_match;
+				}
+			}
 		}
 
 		$data = [
@@ -217,6 +240,7 @@ class Absen_sertifikasi extends CI_Controller {
 			'pesertarow'     => $ps_row,
 			'header'         => $this->absensertifikasi_model->header($id_absen),
 			'mahasiswa'      => $this->absensertifikasi_model->listsertifikasimahasiswa($batch->as_batch),
+			'nama'	=> $nama_user,
 			'view'	=> 'admin/absen_sertifikasi/detail'
 		];
 
@@ -231,9 +255,32 @@ class Absen_sertifikasi extends CI_Controller {
 		$ps_row = array();
 		$query = $this->absensertifikasi_model->listsertifikasiumumrow($id_absen);
 
+		$mhs = $this->absensertifikasi_model->absen_sertifikasimahasiswa();
+		$peserta = $this->absensertifikasi_model->absen_sertifikasiumum();
+
+		$data_match = array();
+
+		$nama_user = "";
+
 		foreach($query as $q)
 		{
-			$ps_row[$q->aps_peserta]  = $q->aps_ishadir;
+			foreach($mhs as $m)
+			{
+				foreach($peserta as $p)
+				{
+					$data_peserta = $this->users_model->listusers($p->srtu_peserta);
+					$data_match[$p->srtu_peserta] = $data_peserta->pu_nama;
+
+					$data_mhs = $this->absensertifikasi_model->getnama($m->sm_mahasiswa);
+					$data_match[$m->sm_mahasiswa] = $data_mhs->name;
+					
+					// Kehadiran
+					$ps_row[$q->aps_peserta]  = $q->aps_ishadir;
+
+					$nama_user = $data_match;
+
+				}
+			}
 		}
 
 		$data = [
@@ -242,6 +289,7 @@ class Absen_sertifikasi extends CI_Controller {
 			'pesertarow'     => $ps_row,
 			'header'         => $this->absensertifikasi_model->header($id_absen),
 			'mahasiswa'      => $this->absensertifikasi_model->listsertifikasimahasiswa($batch->as_batch),
+			'nama'	=> $nama_user,
 			'view'	=> 'admin/absen_sertifikasi/absen_update'
 		];
 
@@ -279,10 +327,41 @@ class Absen_sertifikasi extends CI_Controller {
 
 	public function cetak_absen($id_absen, $id_batch)
 	{
+		$query = $this->absensertifikasi_model->cetakabsen($id_absen, $id_batch);
+
+		$mhs = $this->absensertifikasi_model->absen_sertifikasimahasiswa();
+		$peserta = $this->absensertifikasi_model->absen_sertifikasiumum();
+
+		$data_match = array();
+
+		$nama_user = "";
+
+		foreach($query as $q)
+		{
+			foreach($mhs as $m)
+			{
+				foreach($peserta as $p)
+				{
+					$data_peserta = $this->users_model->listusers($p->srtu_peserta);
+					$data_match[$p->srtu_peserta] = $data_peserta->pu_nama;
+
+					$data_mhs = $this->absensertifikasi_model->getnama($m->sm_mahasiswa);
+					$data_match[$m->sm_mahasiswa] = $data_mhs->name;
+
+					$nama_user = $data_match;
+				}
+			}
+		}
+
 		$data = [
-			'listabsen'         => $this->absensertifikasi_model->cetakabsen($id_absen, $id_batch),
-			'row'               => $this->absensertifikasi_model->cetakabsenrow($id_absen, $id_batch)
+			'listabsen'         => $query,
+			'row'               => $this->absensertifikasi_model->cetakabsenrow($id_absen, $id_batch),
+			'nama'				=> $nama_user
 		];
+
+		// header('content-type: application/json');
+		// echo json_encode($data);
+		// die;
 		$this->load->view('admin/absen_sertifikasi/cetak', $data);
 	}
 
