@@ -188,6 +188,8 @@ class Sertifikasi extends CI_Controller {
 
 	public function upload_umum()
 	{
+		$this->form_validation->set_rules('subsertifikasi_id', '', 'required');
+
 		$this->form_validation->set_rules('nama_bank', 'Nama Bank', 'required|trim');
 		$this->form_validation->set_rules('no_rek', 'No Rekening', 'required|trim|numeric');
 		$this->form_validation->set_rules('nama_pemilik', 'Nama Pemilik', 'required|trim');
@@ -201,7 +203,7 @@ class Sertifikasi extends CI_Controller {
 		{
 			$this->session->set_flashdata('message', 'Mohon isi sesuai dengan format!');
 			$this->session->set_flashdata('tipe', 'error');
-			$this->buktibayarumum($this->input->post('subsertifikasi_id'), $this->input->post('sertifikasi_id'));
+			$this->buktibayarumum($this->input->post('subsertifikasi_id'), $this->input->post('sertifikasi'));
 		} 
 		else 
 		{

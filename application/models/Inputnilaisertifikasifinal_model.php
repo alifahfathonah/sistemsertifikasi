@@ -5,13 +5,20 @@ class Inputnilaisertifikasifinal_model extends CI_Model {
 
 	function listsertifikasiumum($id_sertifikasi)
 	{
+		// SELECT UNTUK GROUP BY BERDASARKAN ID SSC_SERTIFIKASI_UMUM
+		$this->db->select('*');
+		$this->db->from('ssc_sertifikasi_umum');
+		$this->db->join('ssc_subsertifikasi_umum', 'ssc_subsertifikasi_umum.ssu_sertifikasi_umum = ssc_sertifikasi_umum.srtu_id');
+		$this->db->where('ssc_sertifikasi_umum.srtu_sertifikasi', $id_sertifikasi);
+		$get = $this->db->get()->row();
+
 		$this->db->join('ssc_subsertifikasi_umum', 'ssc_subsertifikasi_umum.ssu_sertifikasi_umum = ssc_sertifikasi_umum.srtu_id');
 		$this->db->join('ssc_peserta_umum', 'ssc_peserta_umum.pu_email = ssc_sertifikasi_umum.srtu_peserta');
 		$this->db->where('srtu_sertifikasi', $id_sertifikasi);
 		$this->db->where('ssu_status', 'Lunas');
         // $this->db->where('ssu_ishadir', 'y');
 		$this->db->where('ssu_skor is NOT NULL');
-		// $this->db->group_by('ssc_sertifikasi_umum.srtu_sertifikasi', $id_sertifikasi);
+		$this->db->group_by('ssc_subsertifikasi_umum.ssu_sertifikasi_umum', $get->ssu_sertifikasi_umum);
 		return $this->db->get('ssc_sertifikasi_umum');
 	}
 

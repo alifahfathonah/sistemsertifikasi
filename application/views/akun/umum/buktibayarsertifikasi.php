@@ -10,6 +10,8 @@
 				<form action="<?php echo base_url('sertifikasi/upload_umum') ?>" method="post" enctype="multipart/form-data">
 
 					<input type="hidden" name="subsertifikasi_id" value="<?php echo $bukti->ssu_id ?>">
+					<input type="hidden" name="sertifikasi" value="<?php echo $bukti->srtu_sertifikasi ?>">
+
 					<div class="mt-10">
 						<label class="pb-2">Nama Bank</label>
 						<input type="text" class="single-input" name="nama_bank" value="<?php echo $this->input->post('nama_bank') ?? $bukti->ssu_bank ?>">
@@ -30,7 +32,7 @@
 
 					<div class="mt-10">
 						<label class="pb-2">Bukti Bayar</label>
-						<input type="file" class="single-input" name="buktibayar">
+						<input type="file" class="single-input" name="buktibayar" <?php if($bukti->ssu_bukti == NULL || $bukti->ssu_bukti == '') { echo 'required'; } ?>>
 						<p style="text-align: left !important; margin-bottom: 5px; margin-top: 10px;">Bukti Bayar : <?php if ($bukti->ssu_bukti!=""||$bukti->ssu_bukti!= NULL){?><a target="_BLANK" href="<?php echo base_url();?>assets/buktitransfersertifikasiumum/<?php echo $bukti->ssu_bukti;?>">Klik Untuk Download</a><?php } ?></p>
 					</div>
 
