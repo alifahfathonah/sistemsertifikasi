@@ -107,8 +107,6 @@ class Batchsertifikasi_model extends CI_Model
         $this->db->where('ssu_subsertifikasi', $id_subsertifikasi);
         $this->db->where('ssc_sertifikasi_umum.srtu_peserta', $this->session->userdata('email'));
         $this->db->where('ssc_sertifikasi_umum.srtu_sertifikasi', $id_sertifikasi);
-        // $this->db->where('ssc_sertifikasi_umum.srtu_status is NULL');
-        // $this->db->where('ssc_sertifikasi_umum.srtu_status', 'Lulus');
         return $this->db->get('ssc_subsertifikasi_umum');
     }
 
@@ -128,15 +126,12 @@ class Batchsertifikasi_model extends CI_Model
         return $this->db->update('ssc_sertifikasi_mahasiswa', $update);
     }
 
-    function cekmahasiswa($id_batch, $id_subsertifikasi,$npm, $id_sertifikasi)
+    function cekmahasiswa($id_subsertifikasi, $id_sertifikasi)
     {
         $this->db->join('ssc_sertifikasi_mahasiswa', 'ssc_sertifikasi_mahasiswa.sm_id = ssc_subsertifikasi_mahasiswa.ssm_sertifikasi_mahasiswa');
-        $this->db->where('ssm_batch', $id_batch);
         $this->db->where('ssm_subsertifikasi', $id_subsertifikasi);
-        $this->db->where('ssc_sertifikasi_mahasiswa.sm_mahasiswa', $npm);
+        $this->db->where('ssc_sertifikasi_mahasiswa.sm_mahasiswa', $this->session->userdata('npm'));
         $this->db->where('ssc_sertifikasi_mahasiswa.sm_sertifikasi', $id_sertifikasi);
-        $this->db->where('ssc_sertifikasi_mahasiswa.sm_status is NULL');
-        $this->db->or_where('ssc_sertifikasi_mahasiswa.sm_status', 'Lulus');
         return $this->db->get('ssc_subsertifikasi_mahasiswa');
     }
 
@@ -175,16 +170,6 @@ class Batchsertifikasi_model extends CI_Model
     {
         $this->db->where('sm_id', $id_sertifikasi);
         return $this->db->update('ssc_sertifikasi_mahasiswa', $data);
-    }
-
-    function cekbelumlulusmhs($id_subser, $npm)
-    {
-        $this->db->join('ssc_subsertifikasi_mahasiswa', 'ssc_sertifikasi_mahasiswa.sm_id = ssc_subsertifikasi_mahasiswa.ssm_sertifikasi_mahasiswa');
-        // $this->db->where('ssc_subsertifikasi_umum.ssu_batch', $id_batch);
-        $this->db->where('ssc_subsertifikasi_mahasiswa.ssm_subsertifikasi', $id_subser);
-        $this->db->where('sm_mahasiswa', $npm);
-        $this->db->where('sm_status','Tidak Lulus');
-        return $this->db->get('ssc_sertifikasi_mahasiswa');
     }
 
     function generateID($npm)

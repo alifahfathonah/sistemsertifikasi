@@ -33,7 +33,7 @@
 
 					<div class="mt-10">
 						<label class="pb-2">Bukti Bayar</label>
-						<input type="file" class="single-input" name="buktibayar">
+						<input type="file" class="single-input" name="buktibayar" <?php if($bukti->ssm_bukti == '' || $bukti->ssm_bukti == NULL) { echo 'required'; } ?>>
 						<p style="text-align: left !important; margin-bottom: 5px; margin-top: 10px;">Bukti Bayar : <?php if ($bukti->ssm_bukti!=""||$bukti->ssm_bukti!= NULL){?><a target="_BLANK" href="<?php echo base_url();?>assets/buktitransfersertifikasimahasiswa/<?php echo $bukti->ssm_bukti;?>">Klik Untuk Download</a><?php } ?></p>
 					</div>
 

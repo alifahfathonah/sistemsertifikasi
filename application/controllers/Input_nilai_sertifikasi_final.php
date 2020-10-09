@@ -360,16 +360,16 @@ class Input_nilai_sertifikasi_final extends CI_Controller {
 					}
 
 					$data = [
-						'srtu_skor'                 => $this->input->post('skor'),
-						'srtu_grade'                => $this->input->post('grade'),
-						'srtu_penghargaan'          => $this->input->post('penghargaan'),
-						'srtu_lembagasertifikasi'   => $this->input->post('lembaga'),
-						'srtu_status'               => $this->input->post('status'),
-						'srtu_sertifikat'           => $namafile,
-						'srtu_tanggal_lulus'        => $this->input->post('tanggal_lulus'),
-						'srtu_catatan'              => $this->input->post('catatan'),
-						'srtu_userupdate'           => $this->session->userdata('username'),
-						'srtu_lastupdate'           => date('Y-m-d H:i:s')
+						'sm_skor'                 => $this->input->post('skor'),
+						'sm_grade'                => $this->input->post('grade'),
+						'sm_penghargaan'          => $this->input->post('penghargaan'),
+						'sm_lembagasertifikasi'   => $this->input->post('lembaga'),
+						'sm_status'               => $this->input->post('status'),
+						'sm_sertifikat'           => $namafile,
+						'sm_tanggal_lulus'        => $this->input->post('tanggal_lulus'),
+						'sm_catatan'              => $this->input->post('catatan'),
+						'sm_userupdate'           => $this->session->userdata('username'),
+						'sm_lastupdate'           => date('Y-m-d H:i:s')
 					];
 
 					if($this->inputnilaisertifikasifinal_model->insert_mahasiswa($this->input->post('id_sertifikasi'), $this->input->post('id_mahasiswa'), $data))

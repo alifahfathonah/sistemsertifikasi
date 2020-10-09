@@ -80,13 +80,19 @@ class Inputnilaisertifikasifinal_model extends CI_Model {
 
 	function listsertifikasimahasiswa($id_sertifikasi)
 	{
+		// SELECT UNTUK GROUP BY BERDASARKAN ID SSC_SERTIFIKASI_MAHASISWA
+		$this->db->select('*');
+		$this->db->from('ssc_sertifikasi_mahasiswa');
+		$this->db->join('ssc_subsertifikasi_mahasiswa', 'ssc_subsertifikasi_mahasiswa.ssm_sertifikasi_mahasiswa = ssc_sertifikasi_mahasiswa.sm_id');
+		$this->db->where('ssc_sertifikasi_mahasiswa.sm_sertifikasi', $id_sertifikasi);
+		$get = $this->db->get()->row();
+
 		$this->db->join('ssc_subsertifikasi_mahasiswa', 'ssc_subsertifikasi_mahasiswa.ssm_sertifikasi_mahasiswa = ssc_sertifikasi_mahasiswa.sm_id');
 		$this->db->where('sm_sertifikasi', $id_sertifikasi);
 		$this->db->where('ssm_status', 'Lunas');
         // $this->db->where('ssm_ishadir', 'y');
 		$this->db->where('ssm_skor is NOT NULL');
-        // $this->db->group_by('ssc_sertifikasi_mahasiswa.sm_sertifikasi', $id_sertifikasi);
-		$this->db->where('ssc_sertifikasi_mahasiswa.sm_sertifikasi', $id_sertifikasi);
+        $this->db->group_by('ssc_subsertifikasi_mahasiswa.ssm_sertifikasi_mahasiswa', $get->ssm_sertifikasi_mahasiswa);
 		return $this->db->get('ssc_sertifikasi_mahasiswa');
 	}
 
